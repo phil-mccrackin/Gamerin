@@ -620,6 +620,7 @@ namespace Gamerin
 
             playerDead = false;
             gameOver = false;
+            
             motionDirection = "left";
             for(int x = 0; x < 10; x++)
             {
