@@ -10,20 +10,21 @@ namespace Gamerin
         static string convertString = "oiseughfnsoiulbrniuwbrfwerf";
         static string x;
         static string y;
-
         static int xInt;
         static int yInt;
-        static int lastLocation = 2108387039;
-        static ConsoleKeyInfo key;
         static int headOne;
         static int headTwo;
-        private static readonly Random RNG = new Random();
+
+        static int lastLocation = 2108387039;
+        static ConsoleKeyInfo key;
+        
         static bool True = true;
         static bool True2 = true;
         static string motionDirection = "left";
-
         static bool playerDead = false;
         public static bool gameOver = false;
+
+        private static readonly Random RNG = new Random();
         static AutoResetEvent autoEvent = new AutoResetEvent(false);
 
         static string[,] board = new string[,]{
