@@ -42,6 +42,7 @@ namespace Gamerin
         
         public static void SnakeIntro()
         {
+            //Game intro, waits for command to start game
             gameOver = false;
             Console.Clear();
             Console.WriteLine("Welcome to Snake!");
@@ -55,9 +56,11 @@ namespace Gamerin
         }
         static void RunSnake()
         {
+            //Runs Initialisation then creates refreshTimer to time board prints
             Initialisation();
             Timer refreshTimer = new Timer(MoveStuff, autoEvent, 0, 1000);
 
+            //While loop ends when the player is dead, otherwise reads player's input
             while(True2)
             {
                 if(playerDead == false)
@@ -72,7 +75,9 @@ namespace Gamerin
                     True2 = false;
                 }
             }
-
+            
+            //Kills refreshTimer, then checks if the player's snake is 98 segments long (how???) in which case they win
+            //Otherwise the player loses, and the player is returned to the menu after awaiting input
             refreshTimer.Dispose();
 
             if(Menu.tailLocations.Count > 97)
@@ -96,6 +101,7 @@ namespace Gamerin
 
             Console.Read();
             
+            //Ends the game. SpinWait bocks Menu.Main()
             gameEnd: gameOver = true;
             SpinWait.SpinUntil(() => gameOver == true);
 
@@ -104,12 +110,16 @@ namespace Gamerin
 
         static void MoveStuff(object state)
         {
+            //The player might have died after MoveStuff() ended, so it should also be checked when it starts
             if(playerDead)
             {
                 Console.WriteLine("You died. Press any key to return to the menu.");
                 Console.Read();
                 autoEvent.Set();
             }
+
+            //If the player attempts to double back on themselves, they shouldnt be able to
+            //If they try, they move in the opposite direction they attempted to (the direction they wouldve been going already)
             bool reverseDirection = false;
             switch(key.Key)
             {
@@ -138,7 +148,8 @@ namespace Gamerin
                     }
                     break;
             }
-
+            
+            //If they didnt try to do this, they move as normal
             if(reverseDirection == false)
             {
                 switch(key.Key)
@@ -180,7 +191,7 @@ namespace Gamerin
                     break;
                 }
             }
-            else
+            else //If they did, it uses the previous motionDirection value to decide where they go now
             {
                 if(motionDirection == "up")
                 {
@@ -200,15 +211,17 @@ namespace Gamerin
                 }
             }
 
+            //Function that moves all the tail segments sequentially
             TailFollow();
 
+            //Player death check at the end of the turn
             if(playerDead)
             {
                 Console.WriteLine("You died. Press any key to return to the menu.");
                 Console.Read();
                 autoEvent.Set();
             }
-
+            //If the player has not died, the board is printed and the turn ends
             if(playerDead == false)
             {
                 PrintBoard();
@@ -219,35 +232,44 @@ namespace Gamerin
             try
             {
                 if(board[headOne - 1, headTwo] == "o")
-                {
+                { //If the square the player is attempting to enter contains an apple, the EatApple function is called
                     EatApple();
                 }
                 if(board[headOne - 1, headTwo] == "|" || board[headOne - 1, headTwo] == "-")
                 {
+                    //If the square the player is attempting to move to contains a wall, they die
+                    //This is also detected using try-catch but it can be unreliable for some reason so this is a fallback
                     playerDead = true;
                 }
                 if(board[headOne - 1, headTwo] == "=")
-                {
+                { //If the square the player is attempting to move to contains a tail segment, they should die
+                    //However if it is the final tail segment, the tail should omve forward just as the head moves
+                    //into that square, so the square is checked to see if it contains the final segment of the tail
                     int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
                     var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
 
+                    //If it does not, they die
                     if(tailKey != Menu.tailLocations.Count)
                     {
                         playerDead = true;
                     }
                 }
 
+                //If none of these return true and kill the player, the player moves
                 board[headOne - 1, headTwo] = "0";
                 board[headOne, headTwo] = " ";
             }
             catch(IndexOutOfRangeException)
             {
+                //If the square the player is attempting to move to is outside the bounds of the board array (a wall), they die
                 playerDead = true;
             }
+            //The head location changes to reflect the new location
             headOne = headOne - 1;
         }
         static void MoveDown()
         {
+            //Same as the other functions, but moves down
             try
             {
                 if(board[headOne + 1, headTwo] == "o")
@@ -280,6 +302,7 @@ namespace Gamerin
         }
         static void MoveLeft()
         {
+            //Same as the other functions, but moves left
             try
             {
                 if(board[headOne, headTwo - 1] == "o")
@@ -312,6 +335,7 @@ namespace Gamerin
         }
         static void MoveRight()
         {
+            //Same as the other functions, but moves right
             try
             {
                 if(board[headOne, headTwo + 1] == "o")
@@ -346,11 +370,13 @@ namespace Gamerin
         //Other function stuff
         static void EatApple()
         {
+            //If the apple is eaten, a new apple is generated and the tail grows
             TailGrow();
             CreateNewApple();
         }
         static void TailGrow()
         {
+            //The function uses the last position of the last moved tail to add a new one at that location
             convertString = lastLocation.ToString();
             x = convertString.Substring(0, 1);
             y = convertString.Substring(1, 1);
@@ -363,7 +389,8 @@ namespace Gamerin
             Menu.tailLocations.Add(Menu.tailLocations.Count + 1, lastLocation);
         }
         static void TailFollow()
-        {   
+        { //Function sequentially moves tail segments towards the head, following the path the head took
+            //This part decides on the movement of the first segment (next to the head)
             switch(motionDirection)
             {
                 case "up":
@@ -475,6 +502,7 @@ namespace Gamerin
                     break;
             }
             
+            //This part decides on the movement of the rest of the segments
             for(int i = 2; i <= Menu.tailLocations.Count; i++)
             {
                 int preLast = Menu.tailLocations[i];
@@ -488,6 +516,7 @@ namespace Gamerin
                 board[xInt2, yInt2] = " ";
                 Menu.tailLocations[i] = lastLocation;
 
+                //Variables stores where the last segment was before movement, for the TailGrow() function to use
                 lastLocation = preLast;
             } 
         }
@@ -591,6 +620,7 @@ namespace Gamerin
 
             playerDead = false;
             gameOver = false;
+            
             motionDirection = "left";
             for(int x = 0; x < 10; x++)
             {

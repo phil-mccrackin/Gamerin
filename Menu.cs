@@ -23,7 +23,7 @@ namespace Gamerin
             Console.WriteLine("Press 'e' to exit.");
             Console.WriteLine("Select game: tictactoe - snake");
 
-            gameInput = Console.ReadLine().ToLower();
+            getInput: gameInput = Console.ReadLine().ToLower();
 
             if(gameInput == "tictactoe")
             {
@@ -44,9 +44,8 @@ namespace Gamerin
             }
             else
             {
-                Console.WriteLine("Thats not a game.");
                 Thread.Sleep(1000);
-                goto requestInput;
+                goto getInput;
             }
         }
     }
