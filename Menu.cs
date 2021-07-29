@@ -44,7 +44,6 @@ namespace Gamerin
             }
             else
             {
-                Console.WriteLine("Thats not a game.");
                 Thread.Sleep(1000);
                 goto requestInput;
             }
