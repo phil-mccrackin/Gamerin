@@ -20,11 +20,11 @@ namespace Gamerin
         
         static bool True = true;
         static bool True2 = true;
-        static string motionDirection = "left";
         static bool playerDead = false;
-        public static bool gameOver = false;
+        static bool gameOver = false;
+        static string motionDirection = "left";
 
-        private static readonly Random RNG = new Random();
+        static Random RNG = new Random();
         static AutoResetEvent autoEvent = new AutoResetEvent(false);
 
         static string[,] board = new string[,]{
