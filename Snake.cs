@@ -48,7 +48,7 @@ namespace Gamerin
             Console.WriteLine("Welcome to Snake!");
             Thread.Sleep(500);
             Console.WriteLine("");
-            Console.WriteLine("Use the arrow keys to move.");
+            Console.WriteLine("Use the arrow keys or WASD to move.");
             Console.WriteLine("Press any key to begin playing.");
 
             Console.Read();
@@ -123,25 +123,25 @@ namespace Gamerin
             bool reverseDirection = false;
             switch(key.Key)
             {
-                case ConsoleKey.UpArrow:
+                case ConsoleKey.UpArrow | ConsoleKey.W:
                     if(motionDirection == "down")
                     {
                         reverseDirection = true;
                     }
                     break;
-                case ConsoleKey.DownArrow:
+                case ConsoleKey.DownArrow | ConsoleKey.S:
                     if(motionDirection == "up")
                     {
                         reverseDirection = true;
                     }
                     break;
-                case ConsoleKey.LeftArrow:
+                case ConsoleKey.LeftArrow | ConsoleKey.A:
                     if(motionDirection == "right")
                     {
                         reverseDirection = true;
                     }
                     break;
-                case ConsoleKey.RightArrow:
+                case ConsoleKey.RightArrow | ConsoleKey.D:
                     if(motionDirection == "left")
                     {
                         reverseDirection = true;
