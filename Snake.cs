@@ -7,28 +7,28 @@ namespace Gamerin
 {
     public class Snake
     {
-        static string convertString = "oiseughfnsoiulbrniuwbrfwerf";
-        static string x;
-        static string y;
-        static int xInt;
-        static int yInt;
-        static int headOne;
-        static int headTwo;
+        string convertString = "oiseughfnsoiulbrniuwbrfwerf";
+        string x;
+        string y;
+        int xInt;
+        int yInt;
+        int headOne;
+        int headTwo;
 
-        static int lastLocation = 2108387039;
-        static ConsoleKeyInfo key;
+        int lastLocation = 2108387039;
+        ConsoleKeyInfo key;
         
-        static bool True = true;
-        static bool True2 = true;
-        static bool playerDead = false;
-        static bool gameOver = false;
-        static string motionDirection = "left";
-        static string deathCause;
+        bool True = true;
+        bool True2 = true;
+        bool playerDead = false;
+        bool gameOver = false;
+        string motionDirection = "left";
+        string deathCause;
 
-        static Random RNG = new Random();
-        static AutoResetEvent autoEvent = new AutoResetEvent(false);
+        Random RNG = new Random();
+        AutoResetEvent autoEvent = new AutoResetEvent(false);
 
-        static string[,] board = new string[,]{
+        string[,] board = new string[,]{
             {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",},
             {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",},
             {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",},
@@ -41,7 +41,7 @@ namespace Gamerin
             {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",}
         };
         
-        public static void SnakeIntro()
+        public void SnakeIntro()
         {
             //Variables reset
             gameOver = false;
@@ -72,7 +72,7 @@ namespace Gamerin
             Console.Read();
             RunSnake();
         }
-        static void RunSnake()
+        void RunSnake()
         {
             //Runs Initialisation then creates refreshTimer to time board prints
             Initialisation();
@@ -124,7 +124,7 @@ namespace Gamerin
             SpinWait.SpinUntil(() => gameOver == true);
         }
 
-        static void MoveStuff(object state)
+        void MoveStuff(object state)
         {
             //Ensures the apple was created properly
             bool appleExists = false;
@@ -265,7 +265,7 @@ namespace Gamerin
                 PrintBoard();
             }
         }
-        static void MoveUp()
+        void MoveUp()
         {
             try
             {
@@ -301,7 +301,7 @@ namespace Gamerin
             //The head location changes to reflect the new location
             headOne = headOne - 1;
         }
-        static void MoveDown()
+        void MoveDown()
         {
             //Same as the other functions, but moves down
             try
@@ -332,7 +332,7 @@ namespace Gamerin
 
             headOne = headOne + 1;
         }
-        static void MoveLeft()
+        void MoveLeft()
         {
             //Same as the other functions, but moves left
             try
@@ -362,7 +362,7 @@ namespace Gamerin
 
             headTwo = headTwo - 1;
         }
-        static void MoveRight()
+        void MoveRight()
         {
             //Same as the other functions, but moves right
             try
@@ -394,13 +394,13 @@ namespace Gamerin
         }
 
         //Other function stuff
-        static void EatApple()
+        void EatApple()
         {
             //If the apple is eaten, a new apple is generated and the tail grows
             TailGrow();
             CreateNewApple();
         }
-        static void TailGrow()
+        void TailGrow()
         {
             //The function uses the last position of the last moved tail to add a new one at that location
             convertString = lastLocation.ToString();
@@ -423,7 +423,7 @@ namespace Gamerin
 
             Menu.tailLocations.Add(Menu.tailLocations.Count, lastLocation);
         }
-        static void TailFollow()
+        void TailFollow()
         { //Function sequentially moves tail segments towards the head, following the path the head took
             //This part decides on the movement of the first segment (next to the head)
             switch(motionDirection)
@@ -605,7 +605,7 @@ namespace Gamerin
         //Did you get the board printed?
         //Bogos binted?
         //What?
-        static void PrintBoard()
+        void PrintBoard()
         {
             Console.Clear();
             foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
@@ -691,7 +691,7 @@ namespace Gamerin
         
 
         //all dat gud initialisation stuff
-        static void Initialisation()
+        void Initialisation()
         {
             CreateNewSnake();
             CreateNewTail();
@@ -701,14 +701,14 @@ namespace Gamerin
             PrintBoard();
             Thread.Sleep(1000);
         }
-        static void CreateNewSnake()
+        void CreateNewSnake()
         {
             headOne = RNG.Next(2, 7);
             headTwo = RNG.Next(2, 7);
             board[headOne, headTwo] = "0";
             board[headOne, headTwo - 1] = "/";
         }
-        static void CreateNewTail()
+        void CreateNewTail()
         {
             for(int i = 0; i < 2; i++)
             {
@@ -720,7 +720,7 @@ namespace Gamerin
                 Menu.tailLocations.Add(i, Int32.Parse(tail));
             }
         }
-        static void CreateNewApple()
+        void CreateNewApple()
         {
             int ranOne = RNG.Next(0, 9);
             int ranTwo = RNG.Next(0, 9);

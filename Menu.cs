@@ -33,7 +33,7 @@ namespace Gamerin
             if(gameInput == "snake")
             {
                 Snake SnakeGame = new Snake();
-                Snake.SnakeIntro();
+                SnakeGame.SnakeIntro();
                 goto requestInput;
             }
             if(gameInput == "e")
