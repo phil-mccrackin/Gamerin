@@ -254,8 +254,6 @@ namespace Gamerin
             //Player death check at the end of the turn
             if(playerDead)
             {
-                Console.WriteLine("You died. Press any key to return to the menu.");
-                Console.Read();
                 autoEvent.Set();
             }
             //If the player has not died, the board is printed and the turn ends
@@ -300,7 +298,6 @@ namespace Gamerin
             }
             catch(IndexOutOfRangeException)
             {
-                //If the square the player is attempting to move to is outside the bounds of the board array (a wall), they die
                 playerDead = true;
                 deathCause = "hit wall";
             }
@@ -375,7 +372,6 @@ namespace Gamerin
             catch(IndexOutOfRangeException)
             {
                 playerDead = true;
-                deathCause = "hit wall";
             }
 
             headTwo = headTwo - 1;
@@ -411,7 +407,6 @@ namespace Gamerin
             catch(IndexOutOfRangeException)
             {
                 playerDead = true;
-                deathCause = "hit wall";
             }
 
             headTwo = headTwo + 1;
@@ -813,7 +808,14 @@ namespace Gamerin
                 }
             }
             True = true;
-            board[headOne, headTwo - 1] = " ";
+            try
+            {
+                board[headOne, headTwo - 1] = " ";
+            }
+            catch
+            {
+
+            }
         }
     }
 }
