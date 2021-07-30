@@ -125,6 +125,22 @@ namespace Gamerin
 
         static void MoveStuff(object state)
         {
+            //Ensures the apple was created properly
+            bool appleExists = false;
+            for(int i = 1; i <= 10; i++)
+            {
+                for(int j = 1; j <= 10; j++)
+                {
+                    if(board[i, j] == "o")
+                    {
+                        appleExists = true;
+                    }
+                }
+            }
+            if(appleExists == false)
+            {
+                CreateNewApple();
+            }
             //The player might have died after MoveStuff() ended, so it should also be checked when it starts
             if(playerDead)
             {
@@ -246,10 +262,6 @@ namespace Gamerin
         {
             try
             {
-                if(board[headOne - 1, headTwo] == "o")
-                { //If the square the player is attempting to enter contains an apple, the EatApple function is called
-                    EatApple();
-                }
                 if(board[headOne - 1, headTwo] == "|" || board[headOne - 1, headTwo] == "-")
                 {
                     //If the square the player is attempting to move to contains a wall, they die
@@ -279,6 +291,12 @@ namespace Gamerin
                 //If the square the player is attempting to move to is outside the bounds of the board array (a wall), they die
                 playerDead = true;
             }
+
+            if(board[headOne - 1, headTwo] == "o")
+            { //If the square the player is attempting to enter contains an apple, the EatApple function is called
+                EatApple();
+            }
+
             //The head location changes to reflect the new location
             headOne = headOne - 1;
         }
@@ -287,10 +305,6 @@ namespace Gamerin
             //Same as the other functions, but moves down
             try
             {
-                if(board[headOne + 1, headTwo] == "o")
-                {
-                    EatApple();
-                }
                 if(board[headOne + 1, headTwo] == "|" || board[headOne + 1, headTwo] == "-")
                 {
                     playerDead = true;
@@ -313,6 +327,12 @@ namespace Gamerin
             {
                 playerDead = true;
             }
+
+            if(board[headOne + 1, headTwo] == "o")
+            {
+                EatApple();
+            }
+
             headOne = headOne + 1;
         }
         static void MoveLeft()
@@ -320,10 +340,6 @@ namespace Gamerin
             //Same as the other functions, but moves left
             try
             {
-                if(board[headOne, headTwo - 1] == "o")
-                {
-                    EatApple();
-                }
                 if(board[headOne, headTwo - 1] == "|" || board[headOne, headTwo - 1] == "-")
                 {
                     playerDead = true;
@@ -346,6 +362,12 @@ namespace Gamerin
             {
                 playerDead = true;
             }
+
+            if(board[headOne, headTwo - 1] == "o")
+            {
+                EatApple();
+            }
+
             headTwo = headTwo - 1;
         }
         static void MoveRight()
@@ -379,6 +401,12 @@ namespace Gamerin
             {
                 playerDead = true;
             }
+
+            if(board[headOne, headTwo - 1] == "o")
+            {
+                EatApple();
+            }
+
             headTwo = headTwo + 1;
         }
 
