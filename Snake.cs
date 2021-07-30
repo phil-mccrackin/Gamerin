@@ -249,7 +249,7 @@ namespace Gamerin
                     var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
 
                     //If it does not, they die
-                    if(tailKey != Menu.tailLocations.Count)
+                    if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
                     }
@@ -285,7 +285,7 @@ namespace Gamerin
                     int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
                     var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
 
-                    if(tailKey != Menu.tailLocations.Count)
+                    if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
                     }
@@ -318,7 +318,7 @@ namespace Gamerin
                     int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
                     var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
 
-                    if(tailKey != Menu.tailLocations.Count)
+                    if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
                     }
@@ -351,7 +351,7 @@ namespace Gamerin
                     int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
                     var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
 
-                    if(tailKey != Menu.tailLocations.Count)
+                    if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
                     }
@@ -386,7 +386,7 @@ namespace Gamerin
 
             board[xInt, yInt] = "=";
 
-            Menu.tailLocations.Add(Menu.tailLocations.Count + 1, lastLocation);
+            Menu.tailLocations.Add(Menu.tailLocations.Count, lastLocation);
         }
         static void TailFollow()
         { //Function sequentially moves tail segments towards the head, following the path the head took
@@ -394,8 +394,8 @@ namespace Gamerin
             switch(motionDirection)
             {
                 case "up":
-                    convertString = Menu.tailLocations[1].ToString();
-                    lastLocation = Menu.tailLocations[1];
+                    convertString = Menu.tailLocations[0].ToString();
+                    lastLocation = Menu.tailLocations[0];
 
                     
                     y = convertString.Substring((convertString.Length - 1), 1);
@@ -409,7 +409,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
 
                         string newTail = (headOne + 1).ToString() + headTwo.ToString();
-                        Menu.tailLocations[1] = Int32.Parse(newTail);
+                        Menu.tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -421,8 +421,8 @@ namespace Gamerin
                     
                     break;
                 case "down":
-                    convertString = Menu.tailLocations[1].ToString();
-                    lastLocation = Menu.tailLocations[1];
+                    convertString = Menu.tailLocations[0].ToString();
+                    lastLocation = Menu.tailLocations[0];
 
                     y = convertString.Substring((convertString.Length - 1), 1);
                     x = convertString.Substring(0, 1);
@@ -435,7 +435,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
 
                         string newTail = (headOne - 1).ToString() + headTwo.ToString();
-                        Menu.tailLocations[1] = Int32.Parse(newTail);
+                        Menu.tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -447,8 +447,8 @@ namespace Gamerin
                     
                     break;
                 case "left":
-                    convertString = Menu.tailLocations[1].ToString();
-                    lastLocation = Menu.tailLocations[1];
+                    convertString = Menu.tailLocations[0].ToString();
+                    lastLocation = Menu.tailLocations[0];
                     
                     y = convertString.Substring((convertString.Length - 1), 1);
                     x = convertString.Substring(0, 1);
@@ -461,7 +461,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
 
                         string newTail = headOne.ToString() + (headTwo + 1).ToString();
-                        Menu.tailLocations[1] = Int32.Parse(newTail);
+                        Menu.tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -473,8 +473,8 @@ namespace Gamerin
                     
                     break;
                 case "right":
-                    convertString = Menu.tailLocations[1].ToString();
-                    lastLocation = Menu.tailLocations[1];
+                    convertString = Menu.tailLocations[0].ToString();
+                    lastLocation = Menu.tailLocations[0];
                     
                     y = convertString.Substring((convertString.Length - 1), 1);
                     x = convertString.Substring(0, 1);
@@ -487,7 +487,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
                     
                         string newTail = headOne.ToString() + (headTwo - 1).ToString();
-                        Menu.tailLocations[1] = Int32.Parse(newTail);
+                        Menu.tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -503,7 +503,7 @@ namespace Gamerin
             }
             
             //This part decides on the movement of the rest of the segments
-            for(int i = 2; i <= Menu.tailLocations.Count; i++)
+            for(int i = 1; i < Menu.tailLocations.Count; i++)
             {
                 int preLast = Menu.tailLocations[i];
                 convertString = Menu.tailLocations[i].ToString();
@@ -639,10 +639,10 @@ namespace Gamerin
         }
         static void CreateNewTail()
         {
-            for(int i = 1; i <= 2; i++)
+            for(int i = 0; i < 2; i++)
             {
                 string tailOne = headOne.ToString();
-                string tailTwo = (headTwo + i).ToString();
+                string tailTwo = (headTwo + i + 1).ToString();
 
                 string tail = tailOne + tailTwo;
                 
