@@ -98,8 +98,6 @@ namespace Gamerin
             //Otherwise the player loses, and the player is returned to the menu after awaiting input
             refreshTimer.Dispose();
 
-            Console.WriteLine(deathCause);
-
             if(Menu.tailLocations.Count > 97)
             {
                 Thread.Sleep(2000);
@@ -157,12 +155,12 @@ namespace Gamerin
             switch(key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    case ConsoleKey.W:
-                        if(motionDirection == "down")
-                        {
-                            reverseDirection = true;
-                        }
-                        break;
+                case ConsoleKey.W:
+                    if(motionDirection == "down")
+                    {
+                        reverseDirection = true;
+                    }
+                    break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     if(motionDirection == "up")
@@ -192,18 +190,22 @@ namespace Gamerin
                 switch(key.Key)
                 {
                 case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
                     motionDirection = "up";
                     MoveUp();
                     break;
                 case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
                     motionDirection = "down";
                     MoveDown();
                     break;
                 case ConsoleKey.LeftArrow:
+                case ConsoleKey.A:
                     motionDirection = "left";
                     MoveLeft();
                     break;
                 case ConsoleKey.RightArrow:
+                case ConsoleKey.D:
                     motionDirection = "right";
                     MoveRight();
                     break;
@@ -224,7 +226,6 @@ namespace Gamerin
                     {
                         MoveDown();
                     }
-                        
                     break;
                 }
             }
