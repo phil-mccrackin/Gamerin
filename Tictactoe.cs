@@ -25,12 +25,8 @@ namespace Gamerin
 
         public static void RunTictactoe()
         {
-            //Welcome screen, then resets required variables to defaults
-            gameStart: Console.Clear();
-            Console.WriteLine("Welcome to TicTacToe!");
-            Thread.Sleep(500);
-            Console.WriteLine("Use grid references to place your X or O. (E.g., 2, 2 is the middle square)");
-            
+            //Resets required variables to defaults
+            gameStart:
             for(int a = 0; a <= 2; a++)
             {
                 for(int b = 0; b <= 2; b++)
@@ -43,9 +39,12 @@ namespace Gamerin
             p = "empty";
 
             //Intro
-            Console.WriteLine("");
-            Console.WriteLine("Enter grid references from 1, 1 to 3, 3 to move.");
-            Console.WriteLine("Press 'e' at any time to return to the menu");
+            Console.Clear();
+            Console.WriteLine("Welcome to TicTacToe!");
+            Thread.Sleep(500);
+            Console.WriteLine("Use grid references to place your X or O. (E.g., 2, 2 is the middle square)");
+            Console.WriteLine("Press 'e' at any time to return to the menu. Press any key to start playing.");
+            Console.ReadKey();
 
             //Loops through turns
             for(int i = 1; i <= 9; i++)
