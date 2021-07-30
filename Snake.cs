@@ -157,12 +157,12 @@ namespace Gamerin
             switch(key.Key)
             {
                 case ConsoleKey.UpArrow:
-                case ConsoleKey.W:
-                    if(motionDirection == "down")
-                    {
-                        reverseDirection = true;
-                    }
-                    break;
+                    case ConsoleKey.W:
+                        if(motionDirection == "down")
+                        {
+                            reverseDirection = true;
+                        }
+                        break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     if(motionDirection == "up")
@@ -181,7 +181,7 @@ namespace Gamerin
                 case ConsoleKey.D:
                     if(motionDirection == "left")
                     {
-                        reverseDirection = true;
+                    reverseDirection = true;
                     }
                     break;
             }
@@ -270,16 +270,9 @@ namespace Gamerin
                 { //If the square the player is attempting to enter contains an apple, the EatApple function is called
                     EatApple();
                 }
-                if(board[headOne - 1, headTwo] == "|" || board[headOne - 1, headTwo] == "-")
-                {
-                    //If the square the player is attempting to move to contains a wall, they die
-                    //This is also detected using try-catch but it can be unreliable for some reason so this is a fallback
-                    playerDead = true;
-                    deathCause = "hit wall";
-                }
                 if(board[headOne - 1, headTwo] == "=")
                 { //If the square the player is attempting to move to contains a tail segment, they should die
-                    //However if it is the final tail segment, the tail should omve forward just as the head moves
+                    //However if it is the final tail segment, the tail should move forward just as the head moves
                     //into that square, so the square is checked to see if it contains the final segment of the tail
                     int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
                     var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
@@ -314,11 +307,6 @@ namespace Gamerin
                 {
                     EatApple();
                 }
-                if(board[headOne + 1, headTwo] == "|" || board[headOne + 1, headTwo] == "-")
-                {
-                    playerDead = true;
-                    deathCause = "wall";
-                }
                 if(board[headOne + 1, headTwo] == "=")
                 {
                     int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
@@ -350,11 +338,6 @@ namespace Gamerin
                 {
                     EatApple();
                 }
-                if(board[headOne, headTwo - 1] == "|" || board[headOne, headTwo - 1] == "-")
-                {
-                    playerDead = true;
-                    deathCause = "hit wall";
-                }
                 if(board[headOne, headTwo - 1] == "=")
                 {
                     int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
@@ -381,14 +364,9 @@ namespace Gamerin
             //Same as the other functions, but moves right
             try
             {
-                if(board[headOne, headTwo - 1] == "o")
+                if(board[headOne, headTwo + 1] == "o")
                 {
                     EatApple();
-                }
-                if(board[headOne, headTwo + 1] == "|" || board[headOne, headTwo + 1] == "-")
-                {
-                    playerDead = true;
-                    deathCause = "hit wall";
                 }
                 if(board[headOne, headTwo + 1] == "=")
                 {
