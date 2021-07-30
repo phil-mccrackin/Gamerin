@@ -23,6 +23,7 @@ namespace Gamerin
         static bool playerDead = false;
         static bool gameOver = false;
         static string motionDirection = "left";
+        static string deathCause;
 
         static Random RNG = new Random();
         static AutoResetEvent autoEvent = new AutoResetEvent(false);
@@ -45,11 +46,13 @@ namespace Gamerin
             //Variables reset
             gameOver = false;
             playerDead = false;
+            motionDirection = "left";
 
             True = true;
             True2 = true;
 
-            motionDirection = "left";
+            Menu.tailLocations.Clear();
+
             for(int x = 0; x < 10; x++)
             {
                 for(int y = 0; y < 10; y++)
@@ -95,6 +98,8 @@ namespace Gamerin
             //Otherwise the player loses, and the player is returned to the menu after awaiting input
             refreshTimer.Dispose();
 
+            Console.WriteLine(deathCause);
+
             if(Menu.tailLocations.Count > 97)
             {
                 Thread.Sleep(2000);
@@ -119,17 +124,15 @@ namespace Gamerin
             //Ends the game. SpinWait bocks Menu.Main()
             gameEnd: gameOver = true;
             SpinWait.SpinUntil(() => gameOver == true);
-
-            
         }
 
         static void MoveStuff(object state)
         {
             //Ensures the apple was created properly
             bool appleExists = false;
-            for(int i = 1; i <= 10; i++)
+            for(int i = 0; i < 10; i++)
             {
-                for(int j = 1; j <= 10; j++)
+                for(int j = 0; j < 10; j++)
                 {
                     if(board[i, j] == "o")
                     {
@@ -144,7 +147,6 @@ namespace Gamerin
             //The player might have died after MoveStuff() ended, so it should also be checked when it starts
             if(playerDead)
             {
-                Console.WriteLine("You died. Press any key to return to the menu.");
                 Console.Read();
                 autoEvent.Set();
             }
@@ -154,25 +156,29 @@ namespace Gamerin
             bool reverseDirection = false;
             switch(key.Key)
             {
-                case ConsoleKey.UpArrow | ConsoleKey.W:
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
                     if(motionDirection == "down")
                     {
                         reverseDirection = true;
                     }
                     break;
-                case ConsoleKey.DownArrow | ConsoleKey.S:
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
                     if(motionDirection == "up")
                     {
                         reverseDirection = true;
                     }
                     break;
-                case ConsoleKey.LeftArrow | ConsoleKey.A:
+                case ConsoleKey.LeftArrow:
+                case ConsoleKey.A:
                     if(motionDirection == "right")
                     {
                         reverseDirection = true;
                     }
                     break;
-                case ConsoleKey.RightArrow | ConsoleKey.D:
+                case ConsoleKey.RightArrow:
+                case ConsoleKey.D:
                     if(motionDirection == "left")
                     {
                         reverseDirection = true;
@@ -262,11 +268,16 @@ namespace Gamerin
         {
             try
             {
+                if(board[headOne - 1, headTwo] == "o")
+                { //If the square the player is attempting to enter contains an apple, the EatApple function is called
+                    EatApple();
+                }
                 if(board[headOne - 1, headTwo] == "|" || board[headOne - 1, headTwo] == "-")
                 {
                     //If the square the player is attempting to move to contains a wall, they die
                     //This is also detected using try-catch but it can be unreliable for some reason so this is a fallback
                     playerDead = true;
+                    deathCause = "hit wall";
                 }
                 if(board[headOne - 1, headTwo] == "=")
                 { //If the square the player is attempting to move to contains a tail segment, they should die
@@ -279,6 +290,7 @@ namespace Gamerin
                     if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
+                        deathCause = "hit tail";
                     }
                 }
 
@@ -290,11 +302,7 @@ namespace Gamerin
             {
                 //If the square the player is attempting to move to is outside the bounds of the board array (a wall), they die
                 playerDead = true;
-            }
-
-            if(board[headOne - 1, headTwo] == "o")
-            { //If the square the player is attempting to enter contains an apple, the EatApple function is called
-                EatApple();
+                deathCause = "hit wall";
             }
 
             //The head location changes to reflect the new location
@@ -305,9 +313,14 @@ namespace Gamerin
             //Same as the other functions, but moves down
             try
             {
+                if(board[headOne + 1, headTwo] == "o")
+                {
+                    EatApple();
+                }
                 if(board[headOne + 1, headTwo] == "|" || board[headOne + 1, headTwo] == "-")
                 {
                     playerDead = true;
+                    deathCause = "wall";
                 }
                 if(board[headOne + 1, headTwo] == "=")
                 {
@@ -317,20 +330,16 @@ namespace Gamerin
                     if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
+                        deathCause = "hit tail";
                     }
                 }
-
                 board[headOne + 1, headTwo] = "0";
                 board[headOne, headTwo] = " ";
             }
             catch(IndexOutOfRangeException)
             {
                 playerDead = true;
-            }
-
-            if(board[headOne + 1, headTwo] == "o")
-            {
-                EatApple();
+                deathCause = "hit wall";
             }
 
             headOne = headOne + 1;
@@ -340,9 +349,14 @@ namespace Gamerin
             //Same as the other functions, but moves left
             try
             {
+                if(board[headOne, headTwo - 1] == "o")
+                {
+                    EatApple();
+                }
                 if(board[headOne, headTwo - 1] == "|" || board[headOne, headTwo - 1] == "-")
                 {
                     playerDead = true;
+                    deathCause = "hit wall";
                 }
                 if(board[headOne, headTwo - 1] == "=")
                 {
@@ -352,20 +366,16 @@ namespace Gamerin
                     if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
+                        deathCause = "hit tail";
                     }
                 }
-
                 board[headOne, headTwo - 1] = "0";
                 board[headOne, headTwo] = " ";
             }
             catch(IndexOutOfRangeException)
             {
                 playerDead = true;
-            }
-
-            if(board[headOne, headTwo - 1] == "o")
-            {
-                EatApple();
+                deathCause = "hit wall";
             }
 
             headTwo = headTwo - 1;
@@ -375,13 +385,14 @@ namespace Gamerin
             //Same as the other functions, but moves right
             try
             {
-                if(board[headOne, headTwo + 1] == "o")
+                if(board[headOne, headTwo - 1] == "o")
                 {
                     EatApple();
                 }
                 if(board[headOne, headTwo + 1] == "|" || board[headOne, headTwo + 1] == "-")
                 {
                     playerDead = true;
+                    deathCause = "hit wall";
                 }
                 if(board[headOne, headTwo + 1] == "=")
                 {
@@ -391,20 +402,16 @@ namespace Gamerin
                     if(tailKey != Menu.tailLocations.Count - 1)
                     {
                         playerDead = true;
+                        deathCause = "hit tail";
                     }
                 }
-            
                 board[headOne, headTwo + 1] = "0";
                 board[headOne, headTwo] = " ";
             }
             catch(IndexOutOfRangeException)
             {
                 playerDead = true;
-            }
-
-            if(board[headOne, headTwo - 1] == "o")
-            {
-                EatApple();
+                deathCause = "hit wall";
             }
 
             headTwo = headTwo + 1;
@@ -421,8 +428,17 @@ namespace Gamerin
         {
             //The function uses the last position of the last moved tail to add a new one at that location
             convertString = lastLocation.ToString();
-            x = convertString.Substring(0, 1);
-            y = convertString.Substring(1, 1);
+
+            if(convertString.Length == 1)
+            {
+                x = "0";
+                y = convertString;
+            }
+            else
+            {
+                x = convertString.Substring(0, 1);
+                y = convertString.Substring((convertString.Length - 1), 1);
+            }
 
             xInt = Int32.Parse(x);
             yInt = Int32.Parse(y);
@@ -659,8 +675,8 @@ namespace Gamerin
                     switch(board[i, j])
                     {
                         case "0":
-                            Console.BackgroundColor = ConsoleColor.Yellow;
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.BackgroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.Green;
                             break;
                         case "=":
                             Console.BackgroundColor = ConsoleColor.DarkGreen;
