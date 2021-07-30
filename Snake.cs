@@ -22,6 +22,7 @@ namespace Gamerin
         bool True2 = true;
         bool playerDead = false;
         bool gameOver = false;
+        bool headTailSwap = false;
         string motionDirection = "left";
         string deathCause;
 
@@ -47,6 +48,7 @@ namespace Gamerin
             gameOver = false;
             playerDead = false;
             motionDirection = "left";
+            headTailSwap = false;
 
             True = true;
             True2 = true;
@@ -126,6 +128,8 @@ namespace Gamerin
 
         void MoveStuff(object state)
         {
+            headTailSwap = false;
+
             //Ensures the apple was created properly
             bool appleExists = false;
             for(int i = 0; i < 10; i++)
@@ -277,20 +281,28 @@ namespace Gamerin
                 { //If the square the player is attempting to move to contains a tail segment, they should die
                     //However if it is the final tail segment, the tail should move forward just as the head moves
                     //into that square, so the square is checked to see if it contains the final segment of the tail
-                    int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
-                    var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
-
-                    //If it does not, they die
-                    if(tailKey != Menu.tailLocations.Count - 1)
+                    int tailLocation = Int32.Parse((headOne - 1).ToString() + headTwo.ToString());
+                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
                     {
-                        playerDead = true;
-                        deathCause = "hit tail";
+                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        {
+                            if(kvp.Value != tailLocation)
+                            {
+                                playerDead = true;
+                            }
+                        }
+                    }
+                    if(playerDead == false)
+                    {
+                        headTailSwap = true;
                     }
                 }
-
-                //If none of these return true and kill the player, the player moves
-                board[headOne - 1, headTwo] = "0";
-                board[headOne, headTwo] = " ";
+                else
+                {
+                    //If none of these return true and kill the player, the player moves
+                    board[headOne - 1, headTwo] = "0";
+                    board[headOne, headTwo] = " ";
+                }
             }
             catch(IndexOutOfRangeException)
             {
@@ -312,17 +324,27 @@ namespace Gamerin
                 }
                 if(board[headOne + 1, headTwo] == "=")
                 {
-                    int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
-                    var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
-
-                    if(tailKey != Menu.tailLocations.Count - 1)
+                    int tailLocation = Int32.Parse((headOne + 1).ToString() + headTwo.ToString());
+                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
                     {
-                        playerDead = true;
-                        deathCause = "hit tail";
+                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        {
+                            if(kvp.Value != tailLocation)
+                            {
+                                playerDead = true;
+                            }
+                        }
+                    }
+                    if(playerDead == false)
+                    {
+                        headTailSwap = true;
                     }
                 }
-                board[headOne + 1, headTwo] = "0";
-                board[headOne, headTwo] = " ";
+                else
+                {
+                    board[headOne + 1, headTwo] = "0";
+                    board[headOne, headTwo] = " ";
+                }
             }
             catch(IndexOutOfRangeException)
             {
@@ -343,17 +365,27 @@ namespace Gamerin
                 }
                 if(board[headOne, headTwo - 1] == "=")
                 {
-                    int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
-                    var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
-
-                    if(tailKey != Menu.tailLocations.Count - 1)
+                    int tailLocation = Int32.Parse(headOne.ToString() + (headTwo - 1).ToString());
+                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
                     {
-                        playerDead = true;
-                        deathCause = "hit tail";
+                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        {
+                            if(kvp.Value != tailLocation)
+                            {
+                                playerDead = true;
+                            }
+                        }
+                    }
+                    if(playerDead == false)
+                    {
+                        headTailSwap = true;
                     }
                 }
-                board[headOne, headTwo - 1] = "0";
-                board[headOne, headTwo] = " ";
+                else
+                {
+                    board[headOne, headTwo - 1] = "0";
+                    board[headOne, headTwo] = " ";
+                }
             }
             catch(IndexOutOfRangeException)
             {
@@ -373,17 +405,27 @@ namespace Gamerin
                 }
                 if(board[headOne, headTwo + 1] == "=")
                 {
-                    int tailLocation = Int32.Parse(headOne.ToString() + headTwo.ToString());
-                    var tailKey = Menu.tailLocations.FirstOrDefault(x => x.Value == tailLocation).Key;
-
-                    if(tailKey != Menu.tailLocations.Count - 1)
+                    int tailLocation = Int32.Parse(headOne.ToString() + (headTwo + 1).ToString());
+                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
                     {
-                        playerDead = true;
-                        deathCause = "hit tail";
+                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        {
+                            if(kvp.Value != tailLocation)
+                            {
+                                playerDead = true;
+                            }
+                        }
+                    }
+                    if(playerDead == false)
+                    {
+                        headTailSwap = true;
                     }
                 }
-                board[headOne, headTwo + 1] = "0";
-                board[headOne, headTwo] = " ";
+                else
+                {
+                    board[headOne, headTwo + 1] = "0";
+                    board[headOne, headTwo] = " ";
+                }
             }
             catch(IndexOutOfRangeException)
             {
@@ -596,7 +638,25 @@ namespace Gamerin
 
                 //Variables stores where the last segment was before movement, for the TailGrow() function to use
                 lastLocation = preLast;
-            } 
+            }
+            if(headTailSwap)
+            {
+                switch(motionDirection)
+                {
+                    case "up":
+                        board[headOne, headTwo] = "0";
+                        break;
+                    case "down":
+                        board[headOne, headTwo] = "0";
+                        break;
+                    case "left":
+                        board[headOne, headTwo] = "0";
+                        break;
+                    case "right":
+                        board[headOne, headTwo] = "0";
+                        break;
+                }
+            }
         }
         
 
