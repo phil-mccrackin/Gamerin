@@ -145,6 +145,7 @@ namespace Gamerin
             //The player might have died after MoveStuff() ended, so it should also be checked when it starts
             if(playerDead)
             {
+                playerDead = true;
                 Console.Read();
                 autoEvent.Set();
             }
@@ -255,6 +256,7 @@ namespace Gamerin
             //Player death check at the end of the turn
             if(playerDead)
             {
+                playerDead = true;
                 autoEvent.Set();
             }
             //If the player has not died, the board is printed and the turn ends
