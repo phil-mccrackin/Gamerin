@@ -42,8 +42,23 @@ namespace Gamerin
         
         public static void SnakeIntro()
         {
-            //Game intro, waits for command to start game
+            //Variables reset
             gameOver = false;
+            playerDead = false;
+
+            True = true;
+            True2 = true;
+
+            motionDirection = "left";
+            for(int x = 0; x < 10; x++)
+            {
+                for(int y = 0; y < 10; y++)
+                {
+                    board[x, y] = " ";
+                }
+            }
+            
+            //Game intro, requests command to start game
             Console.Clear();
             Console.WriteLine("Welcome to Snake!");
             Thread.Sleep(500);
@@ -397,9 +412,16 @@ namespace Gamerin
                     convertString = Menu.tailLocations[0].ToString();
                     lastLocation = Menu.tailLocations[0];
 
-                    
-                    y = convertString.Substring((convertString.Length - 1), 1);
-                    x = convertString.Substring(0, 1);
+                    if(convertString.Length == 1)
+                    {
+                        x = "0";
+                        y = convertString;
+                    }
+                    else
+                    {
+                        y = convertString.Substring((convertString.Length - 1), 1);
+                        x = convertString.Substring(0, 1);
+                    }
 
                     try
                     {
@@ -424,8 +446,16 @@ namespace Gamerin
                     convertString = Menu.tailLocations[0].ToString();
                     lastLocation = Menu.tailLocations[0];
 
-                    y = convertString.Substring((convertString.Length - 1), 1);
-                    x = convertString.Substring(0, 1);
+                    if(convertString.Length == 1)
+                    {
+                        x = "0";
+                        y = convertString;
+                    }
+                    else
+                    {
+                        y = convertString.Substring((convertString.Length - 1), 1);
+                        x = convertString.Substring(0, 1);
+                    }
 
                     try
                     {
@@ -450,8 +480,16 @@ namespace Gamerin
                     convertString = Menu.tailLocations[0].ToString();
                     lastLocation = Menu.tailLocations[0];
                     
-                    y = convertString.Substring((convertString.Length - 1), 1);
-                    x = convertString.Substring(0, 1);
+                    if(convertString.Length == 1)
+                    {
+                        x = "0";
+                        y = convertString;
+                    }
+                    else
+                    {
+                        y = convertString.Substring((convertString.Length - 1), 1);
+                        x = convertString.Substring(0, 1);
+                    }
 
                     try
                     {
@@ -476,8 +514,16 @@ namespace Gamerin
                     convertString = Menu.tailLocations[0].ToString();
                     lastLocation = Menu.tailLocations[0];
                     
-                    y = convertString.Substring((convertString.Length - 1), 1);
-                    x = convertString.Substring(0, 1);
+                    if(convertString.Length == 1)
+                    {
+                        x = "0";
+                        y = convertString;
+                    }
+                    else
+                    {
+                        y = convertString.Substring((convertString.Length - 1), 1);
+                        x = convertString.Substring(0, 1);
+                    }
 
                     try
                     {
@@ -507,8 +553,20 @@ namespace Gamerin
             {
                 int preLast = Menu.tailLocations[i];
                 convertString = Menu.tailLocations[i].ToString();
-                string x2 = convertString.Substring(0, 1);
-                string y2 = convertString.Substring((convertString.Length - 1), 1);
+
+                string x2;
+                string y2;
+
+                if(convertString.Length == 1)
+                {
+                    x2 = "0";
+                    y2 = convertString;
+                }
+                else
+                {
+                    x2 = convertString.Substring(0, 1);
+                    y2 = convertString.Substring((convertString.Length - 1), 1);
+                }
 
                 int xInt2 = Int32.Parse(x2);
                 int yInt2 = Int32.Parse(y2);
@@ -533,9 +591,20 @@ namespace Gamerin
             foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
             {
                 string convertString = kvp.Value.ToString();
-
-                string x = convertString.Substring(0, 1);
-                string y = convertString.Substring(convertString.Length - 1, 1);
+                string x;
+                string y;
+                if(convertString.Length == 1)
+                {
+                    x = "0";
+                    y = convertString;
+                }
+                else
+                {
+                    x = convertString.Substring(0, 1);
+                    y = convertString.Substring(convertString.Length - 1, 1);
+                }
+                
+                
 
                 int xInt = Int32.Parse(x);
                 int yInt = Int32.Parse(y);
@@ -604,7 +673,6 @@ namespace Gamerin
         //all dat gud initialisation stuff
         static void Initialisation()
         {
-            ResetVariables();
             CreateNewSnake();
             CreateNewTail();
             CreateNewApple();
@@ -612,23 +680,6 @@ namespace Gamerin
 
             PrintBoard();
             Thread.Sleep(1000);
-        }
-        static void ResetVariables()
-        {
-            True = true;
-            True2 = true;
-
-            playerDead = false;
-            gameOver = false;
-
-            motionDirection = "left";
-            for(int x = 0; x < 10; x++)
-            {
-                for(int y = 0; y < 10; y++)
-                {
-                    board[x, y] = " ";
-                }
-            }
         }
         static void CreateNewSnake()
         {
