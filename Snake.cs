@@ -24,7 +24,6 @@ namespace Gamerin
         bool gameOver = false;
         bool headTailSwap = false;
         string motionDirection = "left";
-        string deathCause;
 
         Random RNG = new Random();
         AutoResetEvent autoEvent = new AutoResetEvent(false);
@@ -307,7 +306,6 @@ namespace Gamerin
             catch(IndexOutOfRangeException)
             {
                 playerDead = true;
-                deathCause = "hit wall";
             }
 
             //The head location changes to reflect the new location
@@ -349,7 +347,6 @@ namespace Gamerin
             catch(IndexOutOfRangeException)
             {
                 playerDead = true;
-                deathCause = "hit wall";
             }
 
             headOne = headOne + 1;
