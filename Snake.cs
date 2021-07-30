@@ -93,14 +93,14 @@ namespace Gamerin
                 else
                 {
                     True2 = false;
+                    refreshTimer.Dispose();
                 }
             }
             
-            //Kills refreshTimer, then checks if the player's snake is 98 segments long (how???) in which case they win
+            //Kills refreshTimer, then checks if the player's snake is 98 segments long (in which case they 
+            //have filled the board) and if it is then they win.
             //Otherwise the player loses, and the player is returned to the menu after awaiting input
-            refreshTimer.Dispose();
-
-            if(Menu.tailLocations.Count > 97)
+            if(Menu.tailLocations.Count > 96)
             {
                 Thread.Sleep(2000);
                 Console.WriteLine("How in the...");
@@ -111,15 +111,15 @@ namespace Gamerin
                 Console.WriteLine("");
                 Console.WriteLine("Press any key to return to the menu.");
 
-                Console.Read();
+                Console.ReadKey();
 
                 goto gameEnd;
             }
 
             Console.WriteLine("");
-            Console.WriteLine("Press any key to return to the menu.");
+            Console.WriteLine("You lost. Press any key to return to the menu.");
 
-            Console.Read();
+            Console.ReadKey();
             
             //Ends the game. SpinWait bocks Menu.Main()
             gameEnd: gameOver = true;
