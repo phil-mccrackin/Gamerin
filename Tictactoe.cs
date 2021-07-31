@@ -31,7 +31,7 @@ namespace Gamerin
             Console.WriteLine("");
             Console.WriteLine("Use grid references to place your X or O. (E.g., 2, 2 is the middle square)");
             gameStart: Console.WriteLine("Press 'e' at any time to return to the menu. Press any key to start playing.");
-            Console.ReadKey();
+            Console.ReadKey(true);
 
             //Loops through turns
             for(int i = 1; i <= 9; i++)

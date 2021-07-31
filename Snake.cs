@@ -55,7 +55,7 @@ namespace Gamerin
             Console.WriteLine("Use the arrow keys or WASD to move.");
             Console.WriteLine("Press any key to begin playing.");
 
-            Console.Read();
+            Console.ReadKey(true);
             RunSnake();
         }
         void RunSnake()

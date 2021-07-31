@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace Gamerin
 {
@@ -8,16 +9,58 @@ namespace Gamerin
             {" ", " ", " ", " ", " ", " ", " "},
             {" ", " ", " ", " ", " ", " ", " "},
             {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", "R", " ", " "},
-            {" ", " ", " ", "Y", "R", " ", " "},
-            {" ", " ", "Y", "R", "Y", " ", " "}
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "}
         };
 
         public void ConnectFourIntro()
         {
-            PrintBoard();
+            Console.WriteLine("Welcome to Connect Four!");
+            Thread.Sleep(500);
+            Console.WriteLine("");
+            Console.WriteLine("Enter the column (from left to right 1-7) you would like to place your piece in to play");
+            Console.WriteLine("Press 'e' at any time to return to the menu. Press any key to start playing.");
 
-            Console.ReadKey(false);
+            Console.ReadKey(true);
+
+            RunConnectFour();
+        }
+
+        void RunConnectFour()
+        {
+            for(int i = 0; i < 42; i++)
+            {
+                PrintBoard();
+
+                int columnInput;
+                bool canPlace;
+                requestInput: string userInput = Console.ReadKey(true).Key.ToString();
+                
+                if(Int32.TryParse(userInput, out columnInput))
+                {
+                    columnInput = Int32.Parse(userInput);
+                }
+                else
+                {
+                    goto requestInput;
+                }
+                if(columnInput < 1 || columnInput > 7)
+                {
+                    goto requestInput;
+                }
+                for(int i = 0; i < 6; i++)
+                {
+                    if(board[i, columnInput] != " ")
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
         }
 
         void PrintBoard()
