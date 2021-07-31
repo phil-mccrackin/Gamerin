@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Threading;
-using System.Collections.Generic;
 
 namespace Gamerin
 {
     public class Menu
     {
-        static string gameInput;
-
         static void Main(string[] args)
         {
             Console.WriteLine("Time to do some gamerin");
             Thread.Sleep(1500);
-            requestInput: gameInput = null;
+            requestInput: string gameInput;
             Console.Clear();
             Console.WriteLine("(Changing the size of your player window will damage the display of colours in the terminal) \n \n \n");
             Console.WriteLine("Press 'e' to exit.");
-            Console.WriteLine("Select game: tictactoe - snake");
+            Console.WriteLine("Select game: Tictactoe - Snake - Connect Four");
 
-            getInput: gameInput = Console.ReadLine().ToLower();
+            gameInput = Console.ReadLine().ToLower();
 
             if(gameInput == "tictactoe")
             {
@@ -32,6 +29,12 @@ namespace Gamerin
                 SnakeGame.SnakeIntro();
                 goto requestInput;
             }
+            if(gameInput == "connectfour" || gameInput == "connect four" || gameInput == "connect4" || gameInput == "connect 4")
+            {
+                ConnectFour ConnectFourGame = new ConnectFour();
+                ConnectFourGame.ConnectFourIntro();
+                goto requestInput;
+            }
             if(gameInput == "e")
             {
                 return;
@@ -39,7 +42,7 @@ namespace Gamerin
             else
             {
                 Thread.Sleep(1000);
-                goto getInput;
+                goto requestInput;
             }
         }
     }
