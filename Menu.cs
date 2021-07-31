@@ -6,11 +6,6 @@ namespace Gamerin
 {
     public class Menu
     {
-        public static IDictionary<int, int> tailLocations = new Dictionary<int, int>();
-
-        static Tictactoe TictactoeGame = new Tictactoe();
-
-
         static string gameInput;
 
         static void Main(string[] args)
@@ -27,7 +22,8 @@ namespace Gamerin
 
             if(gameInput == "tictactoe")
             {
-                Tictactoe.RunTictactoe();
+                Tictactoe TictactoeGame = new Tictactoe();
+                TictactoeGame.RunTictactoe();
                 goto requestInput;
             }
             if(gameInput == "snake")

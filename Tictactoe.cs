@@ -6,44 +6,31 @@ namespace Gamerin
 {
     public class Tictactoe
     {
-        static string[,] board = new string[3,3] {
+        string[,] board = new string[3,3] {
             { " ", " ", " "},
             { " ", " ", " "},
             { " ", " ", " "}
         };
 
+        string currentPlayer = "P1";
+        string hasWon = "none";
+        string p;
 
-        static string currentPlayer = "P1";
-        static string currentInput;
-        static string hasWon = "none";
-        static string p;
+        string currentInput;
+        string strInputX;
+        string strInputY;
+        int intInputX;
+        int intInputY;
 
-        static string strInputX;
-        static string strInputY;
-        static int intInputX;
-        static int intInputY;
-
-        public static void RunTictactoe()
+        public void RunTictactoe()
         {
-            //Resets required variables to defaults
-            gameStart:
-            for(int a = 0; a <= 2; a++)
-            {
-                for(int b = 0; b <= 2; b++)
-                {
-                    board[a, b] = " ";
-                }
-            }
-            currentPlayer = "P1";
-            hasWon = "none";
-            p = "empty";
-
-            //Intro
+            //Intro 
             Console.Clear();
             Console.WriteLine("Welcome to TicTacToe!");
             Thread.Sleep(500);
+            Console.WriteLine("");
             Console.WriteLine("Use grid references to place your X or O. (E.g., 2, 2 is the middle square)");
-            Console.WriteLine("Press 'e' at any time to return to the menu. Press any key to start playing.");
+            gameStart: Console.WriteLine("Press 'e' at any time to return to the menu. Press any key to start playing.");
             Console.ReadKey();
 
             //Loops through turns
@@ -51,7 +38,7 @@ namespace Gamerin
             {
                 //Prints board state, turn number and current player
                 Console.WriteLine($"Turn {i}:");
-                PrintBoard(board);
+                PrintBoard();
                 Console.Write($"{currentPlayer}: ");
 
                 //Takes input, and ensures input contains comma to separate
@@ -200,7 +187,7 @@ namespace Gamerin
                     break;
                 }
             }
-            PrintBoard(board);
+            PrintBoard();
 
             //Checks if the turn loop expired naturally, in which case the game tied - if not, prints hasWon as the winner
             if(hasWon == "none")
@@ -221,7 +208,7 @@ namespace Gamerin
             }
         }
 
-        static void PrintBoard(string[,] board)
+        void PrintBoard()
         {
             //Uses some funky ass stuff to print the board in a nice enclosed colourful box
             //Which often glitches and looks horrific

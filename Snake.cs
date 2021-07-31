@@ -7,25 +7,30 @@ namespace Gamerin
 {
     public class Snake
     {
-        string convertString = "oiseughfnsoiulbrniuwbrfwerf";
+        int lastLocation;
+
         string x;
         string y;
+
         int xInt;
         int yInt;
+
         int headOne;
         int headTwo;
 
-        int lastLocation = 2108387039;
-        ConsoleKeyInfo key;
         
         bool True = true;
         bool True2 = true;
         bool playerDead = false;
         bool gameOver = false;
         bool headTailSwap = false;
+
+        string convertString = "";
         string motionDirection = "left";
+        ConsoleKeyInfo key;
 
         Random RNG = new Random();
+        public IDictionary<int, int> tailLocations = new Dictionary<int, int>();
         AutoResetEvent autoEvent = new AutoResetEvent(false);
 
         string[,] board = new string[,]{
@@ -43,25 +48,6 @@ namespace Gamerin
         
         public void SnakeIntro()
         {
-            //Variables reset
-            gameOver = false;
-            playerDead = false;
-            motionDirection = "left";
-            headTailSwap = false;
-
-            True = true;
-            True2 = true;
-
-            Menu.tailLocations.Clear();
-
-            for(int x = 0; x < 10; x++)
-            {
-                for(int y = 0; y < 10; y++)
-                {
-                    board[x, y] = " ";
-                }
-            }
-            
             //Game intro, requests command to start game
             Console.Clear();
             Console.WriteLine("Welcome to Snake!");
@@ -99,7 +85,7 @@ namespace Gamerin
             //Kills refreshTimer, then checks if the player's snake is 98 segments long (in which case they 
             //have filled the board) and if it is then they win.
             //Otherwise the player loses, and the player is returned to the menu after awaiting input
-            if(Menu.tailLocations.Count > 96)
+            if(tailLocations.Count > 96)
             {
                 Thread.Sleep(2000);
                 Console.WriteLine("How in the...");
@@ -116,7 +102,7 @@ namespace Gamerin
             }
 
             Console.WriteLine("");
-            Console.WriteLine("You lost. Press any key to return to the menu.");
+            Console.WriteLine("You died. Press any key to return to the menu.");
 
             Console.ReadKey();
             
@@ -145,73 +131,64 @@ namespace Gamerin
             {
                 CreateNewApple();
             }
+
             //The player might have died after MoveStuff() ended, so it should also be checked when it starts
             if(playerDead)
             {
-                playerDead = true;
-                Console.Read();
                 autoEvent.Set();
             }
-
             //If the player attempts to double back on themselves, they shouldnt be able to
             //If they try, they move in the opposite direction they attempted to (the direction they wouldve been going already)
-            bool reverseDirection = false;
+            //If they didnt try to do this, they move as normal
             switch(key.Key)
             {
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
                     if(motionDirection == "down")
                     {
-                        reverseDirection = true;
+                        MoveDown();
+                    }
+                    else
+                    {
+                        motionDirection = "up";
+                        MoveUp();
                     }
                     break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     if(motionDirection == "up")
                     {
-                        reverseDirection = true;
+                        MoveUp();
+                    }
+                    else
+                    {
+                        motionDirection = "down";
+                        MoveDown();
                     }
                     break;
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     if(motionDirection == "right")
                     {
-                        reverseDirection = true;
+                        MoveRight();
+                    }
+                    else
+                    {
+                        motionDirection = "left";
+                        MoveLeft();
                     }
                     break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     if(motionDirection == "left")
                     {
-                    reverseDirection = true;
+                        MoveLeft();
                     }
-                    break;
-            }
-            
-            //If they didnt try to do this, they move as normal
-            if(reverseDirection == false)
-            {
-                switch(key.Key)
-                {
-                case ConsoleKey.UpArrow:
-                case ConsoleKey.W:
-                    motionDirection = "up";
-                    MoveUp();
-                    break;
-                case ConsoleKey.DownArrow:
-                case ConsoleKey.S:
-                    motionDirection = "down";
-                    MoveDown();
-                    break;
-                case ConsoleKey.LeftArrow:
-                case ConsoleKey.A:
-                    motionDirection = "left";
-                    MoveLeft();
-                    break;
-                case ConsoleKey.RightArrow:
-                case ConsoleKey.D:
-                    motionDirection = "right";
-                    MoveRight();
+                    else
+                    {
+                        motionDirection = "right";
+                        MoveRight();
+                    }
                     break;
                 default:
                     if(motionDirection == "left")
@@ -231,26 +208,6 @@ namespace Gamerin
                         MoveDown();
                     }
                     break;
-                }
-            }
-            else //If they did, it uses the previous motionDirection value to decide where they go now
-            {
-                if(motionDirection == "up")
-                {
-                    MoveUp();
-                }
-                if(motionDirection == "down")
-                {
-                    MoveDown();
-                }
-                if(motionDirection == "left")
-                {
-                    MoveLeft();
-                }
-                if(motionDirection == "right")
-                {
-                    MoveRight();
-                }
             }
 
             //Function that moves all the tail segments sequentially
@@ -259,11 +216,9 @@ namespace Gamerin
             //Player death check at the end of the turn
             if(playerDead)
             {
-                playerDead = true;
                 autoEvent.Set();
             }
-            //If the player has not died, the board is printed and the turn ends
-            if(playerDead == false)
+            else
             {
                 PrintBoard();
             }
@@ -281,9 +236,9 @@ namespace Gamerin
                     //However if it is the final tail segment, the tail should move forward just as the head moves
                     //into that square, so the square is checked to see if it contains the final segment of the tail
                     int tailLocation = Int32.Parse((headOne - 1).ToString() + headTwo.ToString());
-                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
+                    foreach(KeyValuePair<int, int> kvp in tailLocations)
                     {
-                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        if(kvp.Key == tailLocations.Count - 1)
                         {
                             if(kvp.Value != tailLocation)
                             {
@@ -323,9 +278,9 @@ namespace Gamerin
                 if(board[headOne + 1, headTwo] == "=")
                 {
                     int tailLocation = Int32.Parse((headOne + 1).ToString() + headTwo.ToString());
-                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
+                    foreach(KeyValuePair<int, int> kvp in tailLocations)
                     {
-                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        if(kvp.Key == tailLocations.Count - 1)
                         {
                             if(kvp.Value != tailLocation)
                             {
@@ -363,9 +318,9 @@ namespace Gamerin
                 if(board[headOne, headTwo - 1] == "=")
                 {
                     int tailLocation = Int32.Parse(headOne.ToString() + (headTwo - 1).ToString());
-                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
+                    foreach(KeyValuePair<int, int> kvp in tailLocations)
                     {
-                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        if(kvp.Key == tailLocations.Count - 1)
                         {
                             if(kvp.Value != tailLocation)
                             {
@@ -403,9 +358,9 @@ namespace Gamerin
                 if(board[headOne, headTwo + 1] == "=")
                 {
                     int tailLocation = Int32.Parse(headOne.ToString() + (headTwo + 1).ToString());
-                    foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
+                    foreach(KeyValuePair<int, int> kvp in tailLocations)
                     {
-                        if(kvp.Key == Menu.tailLocations.Count - 1)
+                        if(kvp.Key == tailLocations.Count - 1)
                         {
                             if(kvp.Value != tailLocation)
                             {
@@ -460,7 +415,7 @@ namespace Gamerin
 
             board[xInt, yInt] = "=";
 
-            Menu.tailLocations.Add(Menu.tailLocations.Count, lastLocation);
+            tailLocations.Add(tailLocations.Count, lastLocation);
         }
         void TailFollow()
         { //Function sequentially moves tail segments towards the head, following the path the head took
@@ -468,8 +423,8 @@ namespace Gamerin
             switch(motionDirection)
             {
                 case "up":
-                    convertString = Menu.tailLocations[0].ToString();
-                    lastLocation = Menu.tailLocations[0];
+                    convertString = tailLocations[0].ToString();
+                    lastLocation = tailLocations[0];
 
                     if(convertString.Length == 1)
                     {
@@ -490,7 +445,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
 
                         string newTail = (headOne + 1).ToString() + headTwo.ToString();
-                        Menu.tailLocations[0] = Int32.Parse(newTail);
+                        tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -502,8 +457,8 @@ namespace Gamerin
                     
                     break;
                 case "down":
-                    convertString = Menu.tailLocations[0].ToString();
-                    lastLocation = Menu.tailLocations[0];
+                    convertString = tailLocations[0].ToString();
+                    lastLocation = tailLocations[0];
 
                     if(convertString.Length == 1)
                     {
@@ -524,7 +479,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
 
                         string newTail = (headOne - 1).ToString() + headTwo.ToString();
-                        Menu.tailLocations[0] = Int32.Parse(newTail);
+                        tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -536,8 +491,8 @@ namespace Gamerin
                     
                     break;
                 case "left":
-                    convertString = Menu.tailLocations[0].ToString();
-                    lastLocation = Menu.tailLocations[0];
+                    convertString = tailLocations[0].ToString();
+                    lastLocation = tailLocations[0];
                     
                     if(convertString.Length == 1)
                     {
@@ -558,7 +513,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
 
                         string newTail = headOne.ToString() + (headTwo + 1).ToString();
-                        Menu.tailLocations[0] = Int32.Parse(newTail);
+                        tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -570,8 +525,8 @@ namespace Gamerin
                     
                     break;
                 case "right":
-                    convertString = Menu.tailLocations[0].ToString();
-                    lastLocation = Menu.tailLocations[0];
+                    convertString = tailLocations[0].ToString();
+                    lastLocation = tailLocations[0];
                     
                     if(convertString.Length == 1)
                     {
@@ -592,7 +547,7 @@ namespace Gamerin
                         board[xInt, yInt] = " ";
                     
                         string newTail = headOne.ToString() + (headTwo - 1).ToString();
-                        Menu.tailLocations[0] = Int32.Parse(newTail);
+                        tailLocations[0] = Int32.Parse(newTail);
                     }
                     catch(FormatException)
                     {
@@ -608,10 +563,10 @@ namespace Gamerin
             }
             
             //This part decides on the movement of the rest of the segments
-            for(int i = 1; i < Menu.tailLocations.Count; i++)
+            for(int i = 1; i < tailLocations.Count; i++)
             {
-                int preLast = Menu.tailLocations[i];
-                convertString = Menu.tailLocations[i].ToString();
+                int preLast = tailLocations[i];
+                convertString = tailLocations[i].ToString();
 
                 string x2;
                 string y2;
@@ -631,11 +586,13 @@ namespace Gamerin
                 int yInt2 = Int32.Parse(y2);
 
                 board[xInt2, yInt2] = " ";
-                Menu.tailLocations[i] = lastLocation;
+                tailLocations[i] = lastLocation;
 
                 //Variables stores where the last segment was before movement, for the TailGrow() function to use
                 lastLocation = preLast;
             }
+
+            //This is where the head moves if it was shown earlier to be trying to move into the square its tail is leaving
             if(headTailSwap)
             {
                 switch(motionDirection)
@@ -658,18 +615,18 @@ namespace Gamerin
         
 
 
-
         //Did you get the board printed?
         //Bogos binted?
         //What?
         void PrintBoard()
         {
             Console.Clear();
-            foreach(KeyValuePair<int, int> kvp in Menu.tailLocations)
+            foreach(KeyValuePair<int, int> kvp in tailLocations)
             {
                 string convertString = kvp.Value.ToString();
                 string x;
                 string y;
+
                 if(convertString.Length == 1)
                 {
                     x = "0";
@@ -681,8 +638,6 @@ namespace Gamerin
                     y = convertString.Substring(convertString.Length - 1, 1);
                 }
                 
-                
-
                 int xInt = Int32.Parse(x);
                 int yInt = Int32.Parse(y);
                 board[xInt, yInt] = "=";
@@ -753,7 +708,6 @@ namespace Gamerin
             CreateNewSnake();
             CreateNewTail();
             CreateNewApple();
-            Console.WriteLine("apple");
 
             PrintBoard();
             Thread.Sleep(1000);
@@ -774,7 +728,7 @@ namespace Gamerin
 
                 string tail = tailOne + tailTwo;
                 
-                Menu.tailLocations.Add(i, Int32.Parse(tail));
+                tailLocations.Add(i, Int32.Parse(tail));
             }
         }
         void CreateNewApple()
