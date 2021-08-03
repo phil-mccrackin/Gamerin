@@ -22,7 +22,7 @@ namespace Gamerin
             Console.WriteLine("Welcome to Connect Four!");
             Thread.Sleep(500);
             Console.WriteLine("");
-            Console.WriteLine("Enter the column (from left to right 1-7) you would like to place your piece in to play");
+            Console.WriteLine("Enter the column (from left to right 1-7) you would like to place your piece in to play.");
             Console.WriteLine("Press 'e' at any time to return to the menu. Press any key to start playing.");
 
             Console.ReadKey(true);
@@ -47,6 +47,10 @@ namespace Gamerin
                 string userInput = Console.ReadLine().ToString();
                 Console.Write("\n");
                 
+                if(userInput.ToLower() == "e")
+                {
+                    return;
+                }
                 if(Int32.TryParse(userInput, out columnInput))
                 {
                     columnInput = Int32.Parse(userInput);
@@ -58,11 +62,13 @@ namespace Gamerin
                 }
                 if(columnInput < 1)
                 {
-                    if(columnInput > 7)
-                    {
-                        Console.WriteLine("That is not an available column.");
-                        goto requestInput;
-                    }
+                    Console.WriteLine("That is not an available column.");
+                    goto requestInput;
+                }
+                if(columnInput > 7)
+                {
+                    Console.WriteLine("That is not an available column.");
+                    goto requestInput;
                 }
                 for(int j = 0; j < 6; j++)
                 {
@@ -95,11 +101,11 @@ namespace Gamerin
                     pieceX = 5.ToString();
                     pieceY = (columnInput - 1).ToString();
                 }
-                if(currentPlayer == "P1")
+                if(currentPlayer == "Yellow")
                 {
                     board[Int32.Parse(pieceX), Int32.Parse(pieceY)] = "Y";
                 }
-                else if(currentPlayer == "P2")
+                else if(currentPlayer == "Red")
                 {
                     board[Int32.Parse(pieceX), Int32.Parse(pieceY)] = "R";
                 }
@@ -118,7 +124,8 @@ namespace Gamerin
                     currentPlayer = "Yellow";
                 }
             }
-
+            
+            PrintBoard();
             switch(hasWon)
             {
                 case "Yellow":
