@@ -23,19 +23,19 @@ namespace Gamerin
                 TictactoeGame.RunTictactoe();
                 goto requestInput;
             }
-            if(gameInput == "snake")
+            else if(gameInput == "snake")
             {
                 Snake SnakeGame = new Snake();
                 SnakeGame.SnakeIntro();
                 goto requestInput;
             }
-            if(gameInput == "connectfour" || gameInput == "connect four" || gameInput == "connect4" || gameInput == "connect 4")
+            else if(gameInput == "connectfour" || gameInput == "connect four" || gameInput == "connect4" || gameInput == "connect 4")
             {
                 ConnectFour ConnectFourGame = new ConnectFour();
                 ConnectFourGame.ConnectFourIntro();
                 goto requestInput;
             }
-            if(gameInput == "e")
+            else if(gameInput == "e")
             {
                 return;
             }
