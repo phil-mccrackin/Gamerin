@@ -5,6 +5,8 @@ namespace Gamerin
 {
     public class ConnectFour
     {
+        string currentPlayer = "Yellow";
+        string hasWon = "none";
         string[,] board = new string[,]{
             {" ", " ", " ", " ", " ", " ", " "},
             {" ", " ", " ", " ", " ", " ", " "},
@@ -16,6 +18,7 @@ namespace Gamerin
 
         public void ConnectFourIntro()
         {
+            Console.Clear();
             Console.WriteLine("Welcome to Connect Four!");
             Thread.Sleep(500);
             Console.WriteLine("");
@@ -32,10 +35,17 @@ namespace Gamerin
             for(int i = 0; i < 42; i++)
             {
                 PrintBoard();
+                Console.Write($"{currentPlayer}: ");
 
+                requestInput: 
                 int columnInput;
-                bool canPlace;
-                requestInput: string userInput = Console.ReadKey(true).Key.ToString();
+                bool placeFound = false;
+                bool columnFull = false;
+                string pieceX = " ";
+                string pieceY = " ";
+
+                string userInput = Console.ReadLine().ToString();
+                Console.Write("\n");
                 
                 if(Int32.TryParse(userInput, out columnInput))
                 {
@@ -43,24 +53,91 @@ namespace Gamerin
                 }
                 else
                 {
+                    Console.WriteLine("You did not enter the number of a column.");
                     goto requestInput;
                 }
-                if(columnInput < 1 || columnInput > 7)
+                if(columnInput < 1)
                 {
+                    if(columnInput > 7)
+                    {
+                        Console.WriteLine("That is not an available column.");
+                        goto requestInput;
+                    }
+                }
+                for(int j = 0; j < 6; j++)
+                {
+                    if(board[j, columnInput - 1] != " ")
+                    {
+                        if(j == 0)
+                        {
+                            placeFound = false;
+                            columnFull = true;
+                        }
+                        else
+                        {
+                            pieceX = (j - 1).ToString();
+                            pieceY = (columnInput - 1).ToString();
+                            placeFound = true;
+                        }
+                    }
+                    if(placeFound)
+                    {
+                        break;
+                    }
+                }
+                if(columnFull)
+                {
+                    Console.WriteLine("That column is full.");
                     goto requestInput;
                 }
-                for(int i = 0; i < 6; i++)
+                if(placeFound == false)
                 {
-                    if(board[i, columnInput] != " ")
-                    {
-                        
-                    }
-                    else
-                    {
-                        
-                    }
+                    pieceX = 5.ToString();
+                    pieceY = (columnInput - 1).ToString();
+                }
+                if(currentPlayer == "P1")
+                {
+                    board[Int32.Parse(pieceX), Int32.Parse(pieceY)] = "Y";
+                }
+                else if(currentPlayer == "P2")
+                {
+                    board[Int32.Parse(pieceX), Int32.Parse(pieceY)] = "R";
+                }
+
+                if(CheckWin())
+                {
+                    break;
+                }
+
+                if(currentPlayer == "Yellow")
+                {
+                    currentPlayer = "Red";
+                }
+                else
+                {
+                    currentPlayer = "Yellow";
                 }
             }
+
+            switch(hasWon)
+            {
+                case "Yellow":
+                    Console.WriteLine("Congratulations Yellow: you won!");
+                    break;
+                case "Red":
+                    Console.WriteLine("Congratulations Red: you won!");
+                    break;
+                case "none":
+                    Console.WriteLine("Nobody won.");
+                    break;
+                default:
+                    break;
+            }
+
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey(false);
+
+            return;
         }
 
         void PrintBoard()
@@ -140,6 +217,281 @@ namespace Gamerin
             Console.Write("        ");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("  \n");
+        }
+
+        bool CheckWin()
+        {
+            string colour;
+            for(int x = 0; x < 6; x++)
+            {
+                for(int y = 0; y < 7; y++)
+                {
+                    colour = board[x, y];
+
+                    if(CheckVert(x, y, colour))
+                    {
+                        return true;
+                    }
+                    if(CheckHorz(x, y, colour))
+                    {
+                        return true;
+                    }
+                    if(CheckDiagonal(x, y, colour))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+        bool CheckVert(int x, int y, string colour)
+        {
+            try
+            {
+                if(board[x, y] == board[x + 1, y])
+                {
+                    if(board[x + 1, y] == board[x + 2, y])
+                    {
+                        if(board[x + 2, y] == board[x + 3, y])
+                        {
+                            if(colour == "Y")
+                            {
+                                hasWon = "Yellow";
+                                return true;
+                            }
+                            if(colour == "R")
+                            {
+                                hasWon = "Red";
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                if(board[x, y] == board[x - 1, y])
+                {
+                    if(board[x - 1, y] == board[x - 2, y])
+                    {
+                        if(board[x - 2, y] == board[x - 3, y])
+                        {
+                            if(colour == "Y")
+                            {
+                                hasWon = "Yellow";
+                                return true;
+                            }
+                            if(colour == "R")
+                            {
+                                hasWon = "Red";
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+            
+            return false;
+        }
+
+        bool CheckHorz(int x, int y, string colour)
+        {
+            try
+            {
+                if(board[x, y] == board[x, y + 1])
+                {
+                    if(board[x, y + 1] == board[x, y + 2])
+                    {
+                        if(board[x, y + 2] == board[x, y + 3])
+                        {
+                            if(board[x, y] != " ")
+                            {
+                                if(colour == "Y")
+                                {
+                                    hasWon = "Yellow";
+                                    return true;
+                                }
+                                if(colour == "R")
+                                {
+                                    hasWon = "Red";
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                if(board[x, y] == board[x, y - 1])
+                {
+                    if(board[x, y - 1] == board[x, y - 2])
+                    {
+                        if(board[x, y - 2] == board[x, y - 3])
+                        {
+                            if(board[x, y] != " ")
+                            {
+                                if(colour == "Y")
+                                {
+                                    hasWon = "Yellow";
+                                    return true;
+                                }
+                                if(colour == "R")
+                                {
+                                    hasWon = "Red";
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+            
+            return false;
+        }
+
+        bool CheckDiagonal(int x, int y, string colour)
+        {
+            try
+            {
+                if(board[x, y] == board[x - 1, y - 1])
+                {
+                    if(board[x - 1, y - 1] == board[x - 2, y - 2])
+                    {
+                        if(board[x - 2, y - 2] == board[x - 3, y - 3])
+                        {
+                            if(board[x, y] != " ")
+                            {
+                                if(colour == "Y")
+                                {
+                                    hasWon = "Yellow";
+                                    return true;
+                                }
+                                if(colour == "R")
+                                {
+                                    hasWon = "Red";
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                if(board[x, y] == board[x + 1, y - 1])
+                {
+                    if(board[x + 1, y - 1] == board[x + 2, y - 2])
+                    {
+                        if(board[x + 2, y - 2] == board[x + 3, y - 3])
+                        {
+                            if(board[x, y] != " ")
+                            {
+                                if(colour == "Y")
+                                {
+                                    hasWon = "Yellow";
+                                    return true;
+                                }
+                                if(colour == "R")
+                                {
+                                    hasWon = "Red";
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                if(board[x, y] == board[x + 1, y + 1])
+                {
+                    if(board[x + 1, y + 1] == board[x + 2, y + 2])
+                    {
+                        if(board[x + 2, y + 2] == board[x + 3, y + 3])
+                        {
+                            if(board[x, y] != " ")
+                            {
+                                if(colour == "Y")
+                                {
+                                    hasWon = "Yellow";
+                                    return true;
+                                }
+                                if(colour == "R")
+                                {
+                                    hasWon = "Red";
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+
+            try
+            {
+                if(board[x, y] == board[x - 1, y + 1])
+                {
+                    if(board[x - 1, y + 1] == board[x - 2, y + 2])
+                    {
+                        if(board[x - 2, y + 2] == board[x - 3, y + 3])
+                        {
+                            if(board[x, y] != " ")
+                            {
+                                if(colour == "Y")
+                                {
+                                    hasWon = "Yellow";
+                                    return true;
+                                }
+                                if(colour == "R")
+                                {
+                                    hasWon = "Red";
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfRangeException)
+            {
+
+            }
+
+            return false;
         }
     }
 }
