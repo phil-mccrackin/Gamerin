@@ -413,51 +413,7 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            for(int i = 1; i < 11; i++)
-            {
-                switch(board[x, i])
-                {
-                    case " ":
-                        PrintSomeBoard(1, ConsoleColor.Cyan);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                    case "i":
-                    case "if":
-                        PrintSomeBoard(1, ConsoleColor.Cyan);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                    case "j":
-                    case "jf":
-                        PrintSomeBoard(1, ConsoleColor.Blue);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                    case "l":
-                    case "lf":
-                        PrintSomeBoard(1, ConsoleColor.DarkYellow);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                    case "t":
-                    case "tf":
-                        PrintSomeBoard(1, ConsoleColor.DarkMagenta);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                    case "o":
-                    case "of":
-                        PrintSomeBoard(1, ConsoleColor.Yellow);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                    case "s":
-                    case "sf":
-                        PrintSomeBoard(1, ConsoleColor.DarkGreen);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                    case "z":
-                    case "zf":
-                        PrintSomeBoard(1, ConsoleColor.Red);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        break;
-                }
-            }
+            PrintBoardLine(x);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -471,36 +427,47 @@ namespace Gamerin
 
         void PrintBoardLine(int x)
         {
-            for(int sqr = 0; sqr <= 11; sqr++)
+            for(int sqr = 1; sqr < 11; sqr++)
             {
                 switch(board[40 - x, sqr])
                 {
                     case " ":
-                        Console.BackgroundColor = ConsoleColor.DarkBlue;
-                        Console.Write("   ");
-                        Console.BackgroundColor = ConsoleColor.Black; 
-                        break;
-                    case "W":
-                    case "F":
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.Write("   ");
-                        break;
-                    case "I":
-                    case "IF":
-                        Console.BackgroundColor = ConsoleColor.Cyan;
-                        Console.Write("   ");
+                        PrintSomeBoard(1, ConsoleColor.DarkCyan);
                         Console.BackgroundColor = ConsoleColor.Black;
                         break;
-                    case "J":
-                    case "JF":
-                        Console.BackgroundColor = ConsoleColor.Blue;
-                        Console.Write("   ");
+                    case "i":
+                    case "if":
+                        PrintSomeBoard(1, ConsoleColor.Cyan);
                         Console.BackgroundColor = ConsoleColor.Black;
                         break;
-                    case "L":
-                    case "LF":
-                        Console.BackgroundColor = ConsoleColor.DarkYellow;
-                        Console.Write("   ");
+                    case "l":
+                    case "lf":
+                        PrintSomeBoard(1, ConsoleColor.DarkYellow);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        break;
+                    case "j":
+                    case "jf":
+                        PrintSomeBoard(1, ConsoleColor.Blue);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        break;
+                    case "z":
+                    case "zf":
+                        PrintSomeBoard(1, ConsoleColor.Red);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        break;
+                    case "s":
+                    case "sf":
+                        PrintSomeBoard(1, ConsoleColor.DarkGreen);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        break;
+                    case "t":
+                    case "tf":
+                        PrintSomeBoard(1, ConsoleColor.DarkMagenta);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        break;
+                    case "o":
+                    case "of":
+                        PrintSomeBoard(1, ConsoleColor.Yellow);
                         Console.BackgroundColor = ConsoleColor.Black;
                         break;
                 }
