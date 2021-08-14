@@ -72,6 +72,8 @@ namespace Gamerin
 
         void PrintBoard()
         {
+            Console.ForegroundColor = ConsoleColor.Black;
+
             Console.Write("    ");
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.Write("                ");
@@ -81,9 +83,7 @@ namespace Gamerin
             Console.Write("    ");
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             Console.BackgroundColor = ConsoleColor.DarkCyan;
-            Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("  TETRIS  ");
-            Console.ForegroundColor = ConsoleColor.White;
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("\n");
@@ -101,7 +101,6 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-            Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("   HOLD           ");
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Move LEFT - A     ");
@@ -165,7 +164,7 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Rotate - Q & E    ");
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan);
+            PrintSomeBoard(4, ConsoleColor.DarkCyan);//this is where the hold piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -175,14 +174,61 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-            Console.ForegroundColor = ConsoleColor.Black;
             Console.Write("                  ");
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Hold - Space      ");
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
-            Console.Write("   NEXT           ");
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(4, ConsoleColor.DarkCyan);//this is where the hold piece printing should go
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\n");
+
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(14, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(4, ConsoleColor.DarkCyan); //this is where the hold piece printing should go
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\n");
+
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(12, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(4, ConsoleColor.DarkCyan); //this is where the hold piece printing should go
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\n");
+
+            for(int i = 0; i < 20; i++)
+            {
+                PrintThatLine();
+            }
+
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(12, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(6, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\n");
+
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(21, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\n");
+
+            PrintSomeBoard(23, ConsoleColor.DarkBlue);
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("\n");
         }
@@ -193,6 +239,23 @@ namespace Gamerin
             {
                 Console.Write("   ");
             }
+        }
+
+        void PrintThatLine()
+        {
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(10, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(4, ConsoleColor.DarkCyan); //this is where the hold piece printing should go
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            PrintSomeBoard(1, ConsoleColor.DarkCyan);
+            PrintSomeBoard(1, ConsoleColor.DarkBlue);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Write("\n");
         }
 
         void PrintBoardLine(int x)
