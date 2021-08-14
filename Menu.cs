@@ -13,7 +13,7 @@ namespace Gamerin
             Console.Clear();
             Console.WriteLine("(Changing the size of your player window will damage the display of colours in the terminal) \n \n \n");
             Console.WriteLine("Press 'e' to exit.");
-            Console.WriteLine("Select game: Tictactoe - Snake - Connect Four");
+            Console.WriteLine("Select game: Tictactoe - Connect Four - Snake - Tetris");
 
             gameInput = Console.ReadLine().ToLower();
 
@@ -23,16 +23,22 @@ namespace Gamerin
                 TictactoeGame.RunTictactoe();
                 goto requestInput;
             }
+            else if(gameInput == "connectfour" || gameInput == "connect four" || gameInput == "connect4" || gameInput == "connect 4")
+            {
+                ConnectFour ConnectFourGame = new ConnectFour();
+                ConnectFourGame.ConnectFourIntro();
+                goto requestInput;
+            }
             else if(gameInput == "snake")
             {
                 Snake SnakeGame = new Snake();
                 SnakeGame.SnakeIntro();
                 goto requestInput;
             }
-            else if(gameInput == "connectfour" || gameInput == "connect four" || gameInput == "connect4" || gameInput == "connect 4")
+            else if(gameInput == "tetris")
             {
-                ConnectFour ConnectFourGame = new ConnectFour();
-                ConnectFourGame.ConnectFourIntro();
+                Tetris TetrisGame = new Tetris();
+                TetrisGame.TetrisIntro();
                 goto requestInput;
             }
             else if(gameInput == "e")
