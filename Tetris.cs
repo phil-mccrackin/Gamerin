@@ -374,7 +374,7 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("\n");
 
-            for(int i = 0; i < 20; i++)
+            for(int i = 40; i > 21; i--)
             {
                 PrintThatLine(i);
             }
@@ -415,38 +415,46 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             for(int i = 1; i < 11; i++)
             {
-                switch(board[(22 + x), i])
+                switch(board[x, i])
                 {
                     case " ":
                         PrintSomeBoard(1, ConsoleColor.Cyan);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "i":
                     case "if":
                         PrintSomeBoard(1, ConsoleColor.Cyan);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "j":
                     case "jf":
                         PrintSomeBoard(1, ConsoleColor.Blue);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "l":
                     case "lf":
                         PrintSomeBoard(1, ConsoleColor.DarkYellow);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "t":
                     case "tf":
                         PrintSomeBoard(1, ConsoleColor.DarkMagenta);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "o":
                     case "of":
                         PrintSomeBoard(1, ConsoleColor.Yellow);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "s":
                     case "sf":
                         PrintSomeBoard(1, ConsoleColor.DarkGreen);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "z":
                     case "zf":
                         PrintSomeBoard(1, ConsoleColor.Red);
+                        Console.BackgroundColor = ConsoleColor.Black;
                         break;
                 }
             }
