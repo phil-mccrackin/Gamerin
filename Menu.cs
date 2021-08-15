@@ -10,6 +10,8 @@ namespace Gamerin
             Console.WriteLine("Time to do some gamerin");
             Thread.Sleep(1500);
             requestInput: string gameInput;
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
             Console.WriteLine("(Changing the size of your player window will damage the display of colours in the terminal) \n \n \n");
             Console.WriteLine("Press 'e' to exit.");

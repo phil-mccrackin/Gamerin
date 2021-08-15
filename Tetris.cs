@@ -5,7 +5,7 @@ namespace Gamerin
 {
     public class Tetris
     {
-        string heldPiece = "o";
+        string heldPiece = "i";
         string[,] board = new string[41, 12] {
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
@@ -27,7 +27,6 @@ namespace Gamerin
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
-            {"W", "o", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
@@ -37,16 +36,17 @@ namespace Gamerin
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
-            {"W", " ", " ", " ", " ", " ", " ", "L", " ", " ", " ", "W"},
-            {"W", " ", " ", " ", " ", " ", " ", "L", " ", " ", " ", "W"},
-            {"W", " ", " ", " ", " ", " ", " ", "L", "L", " ", " ", "W"},
+            {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
+            {"W", " ", " ", " ", " ", " ", " ", "l", " ", " ", " ", "W"},
+            {"W", " ", " ", " ", " ", " ", " ", "l", " ", " ", " ", "W"},
+            {"W", " ", " ", " ", " ", " ", " ", "l", "l", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
             {"W", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "W"},
-            {"W", " ", " ", " ", " ", " ", "IF", " ", " ", " ", " ", "W"},
-            {"W", " ", " ", " ", "JF", " ", "IF", "LF", "LF", " ", " ", "W"},
-            {"W", " ", " ", " ", "JF", " ", "IF", " ", "LF", " ", " ", "W"},
-            {"W", " ", " ", "JF", "JF", " ", "IF", " ", "LF", " ", " ", "W"},
+            {"W", " ", " ", " ", " ", " ", "if", " ", " ", " ", " ", "W"},
+            {"W", " ", " ", " ", "jf", " ", "if", "lf", "lf", " ", " ", "W"},
+            {"W", " ", " ", " ", "jf", " ", "if", " ", "lf", "of", "of", "W"},
+            {"W", " ", " ", "jf", "jf", " ", "if", " ", "lf", "of", "of", "W"},
             {"F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F", "F"}
         };
         
@@ -57,7 +57,7 @@ namespace Gamerin
             Thread.Sleep(500);
             Console.WriteLine("");
             Console.WriteLine("If you haven't already, fullscreen your window now.");
-            Console.WriteLine("Press 'e' at any time to exit. Press any key to start playing.");
+            Console.WriteLine("Press any key to start playing.");
             Console.ReadKey(true);
 
             RunTetris();
@@ -125,14 +125,14 @@ namespace Gamerin
                 case "s":
                 case "o":
                 case "none":
-                    PrintSomeBoard(4, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(4, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "i":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("    ");
                     PrintSomeBoard(1, ConsoleColor.Cyan);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("     ");
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
@@ -143,7 +143,7 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Move RIGHT - D    ");
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan);
+            PrintSomeBoard(4, ConsoleColor.DarkGray);//This is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -156,56 +156,56 @@ namespace Gamerin
             switch(heldPiece)
             {
                 case "none":
-                    PrintSomeBoard(4, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(4, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "i":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("    ");
                     PrintSomeBoard(1, ConsoleColor.Cyan);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("     ");
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "l":
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(1, ConsoleColor.DarkYellow);
-                    PrintSomeBoard(2, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(2, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "j":
-                    PrintSomeBoard(2, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(2, ConsoleColor.DarkGray);
                     PrintSomeBoard(1, ConsoleColor.Blue);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "t":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("    ");
                     PrintSomeBoard(1, ConsoleColor.DarkMagenta);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("     ");
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "z":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write(" ");
                     PrintSomeBoard(2, ConsoleColor.Red);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     Console.Write("  ");
                     break;
                 case "s":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("  ");
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(2, ConsoleColor.DarkGreen);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write(" ");
                     break;
                 case "o":
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(2, ConsoleColor.Yellow);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     break;
                 default:
                     break;
@@ -214,7 +214,7 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Hard Drop - W     ");
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan);
+            PrintSomeBoard(4, ConsoleColor.DarkGray);//This is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -227,56 +227,56 @@ namespace Gamerin
             switch(heldPiece)
             {
                 case "none":
-                    PrintSomeBoard(4, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(4, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "i":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("    ");
                     PrintSomeBoard(1, ConsoleColor.Cyan);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("     ");
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "l":
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(1, ConsoleColor.DarkYellow);
-                    PrintSomeBoard(2, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(2, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "j":
-                    PrintSomeBoard(2, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(2, ConsoleColor.DarkGray);
                     PrintSomeBoard(1, ConsoleColor.Blue);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "t":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write(" ");
                     PrintSomeBoard(3, ConsoleColor.DarkMagenta);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("  ");
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "z":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write(" ");
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(2, ConsoleColor.Red);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("  ");
                     break;
                 case "s":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("  ");
                     PrintSomeBoard(2, ConsoleColor.DarkGreen);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     Console.Write(" ");
                     break;
                 case "o":
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(2, ConsoleColor.Yellow);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     break;
                 default:
                     break;
@@ -285,7 +285,7 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Soft Drop - S     ");
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan);
+            PrintSomeBoard(4, ConsoleColor.DarkGray); //This is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -302,26 +302,26 @@ namespace Gamerin
                 case "t":
                 case "o":
                 case "none":
-                    PrintSomeBoard(4, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(4, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "i":
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("    ");
                     PrintSomeBoard(1, ConsoleColor.Cyan);
-                    Console.BackgroundColor = ConsoleColor.DarkCyan;
+                    Console.BackgroundColor = ConsoleColor.DarkGray;
                     Console.Write("     ");
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 case "l":
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(2, ConsoleColor.DarkYellow);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     break;
                 case "j":
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     PrintSomeBoard(2, ConsoleColor.Blue);
-                    PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                    PrintSomeBoard(1, ConsoleColor.DarkGray);
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
                 default:
@@ -331,7 +331,7 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Rotate - Q & E    ");
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan);//this is where the next piece printing should go
+            PrintSomeBoard(4, ConsoleColor.DarkGray);//this is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -345,7 +345,7 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.Write("   Hold - Space      ");
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan);//this is where the next piece printing should go
+            PrintSomeBoard(4, ConsoleColor.DarkGray);//this is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -355,7 +355,7 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(14, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan); //this is where the next piece printing should go
+            PrintSomeBoard(4, ConsoleColor.DarkGray); //this is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -367,14 +367,14 @@ namespace Gamerin
             PrintSomeBoard(12, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan); //this is where the next piece printing should go
+            PrintSomeBoard(4, ConsoleColor.DarkGray); //this is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("\n");
 
-            for(int i = 40; i > 21; i--)
+            for(int i = 0; i < 21; i++)
             {
                 PrintThatLine(i);
             }
@@ -417,7 +417,7 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            PrintSomeBoard(4, ConsoleColor.DarkCyan); //this is where the next piece printing should go
+            PrintSomeBoard(4, ConsoleColor.DarkGray); //this is where the next piece printing should go
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
@@ -427,12 +427,12 @@ namespace Gamerin
 
         void PrintBoardLine(int x)
         {
-            for(int sqr = 1; sqr < 11; sqr++)
+            for(int y = 1; y < 11; y++)
             {
-                switch(board[40 - x, sqr])
+                switch(board[19 + x, y])
                 {
                     case " ":
-                        PrintSomeBoard(1, ConsoleColor.DarkCyan);
+                        PrintSomeBoard(1, ConsoleColor.DarkGray);
                         Console.BackgroundColor = ConsoleColor.Black;
                         break;
                     case "i":
@@ -472,7 +472,6 @@ namespace Gamerin
                         break;
                 }
             }
-            Console.Write("\n");
         }
     }
 }
