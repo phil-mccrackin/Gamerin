@@ -5,48 +5,40 @@ namespace Gamerin
 {
     public class TetrisBagGenerator
     {
-        public IDictionary<int, string> newBagPieces = new Dictionary<int, string>();
         string[] newPieceList = new string[]{"i", "l", "j", "s", "z", "t", "o"};
-        public string newNextPiece;
+        public string bagNextPiece;
         Random RNG = new Random();
-        public TetrisBagGenerator(IDictionary<int, string> bagPieces)
-        {
-            foreach(KeyValuePair<int, string> kvp in bagPieces)
-            {
-                newBagPieces.Add(kvp.Key, kvp.Value);
-            }
-        }
 
-        public void GenerateFirstBag()
+        public IDictionary<int, string> GenerateFirstBag(IDictionary<int, string> newBagPieces)
         {
             switch(RNG.Next(1, 7))
             {
                 case 1:
-                    newNextPiece = "i";
+                    bagNextPiece = "i";
                     newPieceList[0] = "empty";
                     break;
                 case 2:
-                    newNextPiece = "l";
+                    bagNextPiece = "l";
                     newPieceList[1] = "empty";
                     break;
                 case 3:
-                    newNextPiece = "j";
+                    bagNextPiece = "j";
                     newPieceList[2] = "empty";
                     break;
                 case 4:
-                    newNextPiece = "s";
+                    bagNextPiece = "s";
                     newPieceList[3] = "empty";
                     break;
                 case 5:
-                    newNextPiece = "z";
+                    bagNextPiece = "z";
                     newPieceList[4] = "empty";
                     break;
                 case 6:
-                    newNextPiece = "t";
+                    bagNextPiece = "t";
                     newPieceList[5] = "empty";
                     break;
                 case 7:
-                    newNextPiece = "o";
+                    bagNextPiece = "o";
                     newPieceList[7] = "empty";
                     break;
             }
@@ -107,9 +99,11 @@ namespace Gamerin
             newPieceList[4] = "z";
             newPieceList[5] = "t";
             newPieceList[6] = "o";
+
+            return newBagPieces;
         }
 
-        public void GenerateAnotherBag()
+        public IDictionary<int, string> GenerateAnotherBag(IDictionary<int, string> newBagPieces)
         {
             for(int i = 0; i < 7; i++)
             {
@@ -168,6 +162,8 @@ namespace Gamerin
             newPieceList[4] = "z";
             newPieceList[5] = "t";
             newPieceList[6] = "o";
+
+            return newBagPieces;
         }
     }
 }

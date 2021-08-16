@@ -49,18 +49,7 @@ namespace Gamerin
         };
 
         string newHeldPiece;
-        public TetrisBoardPrinter(string[,] board, string heldPiece)
-        {
-            for(int x = 0; x < 41; x++)
-            {
-                for(int y = 0; y < 12; y++)
-                {
-                    newBoard[x, y] = board[x, y];
-                }
-            }
-            newHeldPiece = heldPiece;
-        }
-        public void PrintBoard()
+        public void PrintBoard(string[,] newBoard, string newHeldPiece)
         {
             Console.ForegroundColor = ConsoleColor.Black;
 
