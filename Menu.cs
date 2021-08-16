@@ -9,7 +9,10 @@ namespace Gamerin
         {
             Console.WriteLine("Time to do some gamerin");
             Thread.Sleep(1500);
-            requestInput: string gameInput;
+
+            requestInput: 
+            Console.Clear();
+            string gameInput;
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
