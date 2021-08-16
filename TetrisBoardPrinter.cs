@@ -8,6 +8,7 @@ namespace Gamerin
         public void PrintBoard(string[,] newBoard, string newHeldPiece)
         {
             Console.ForegroundColor = ConsoleColor.Black;
+            Console.Clear();
 
             Console.Write("    ");
             Console.BackgroundColor = ConsoleColor.DarkBlue;

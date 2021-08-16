@@ -81,17 +81,10 @@ namespace Gamerin
             bagPieces = BagGenerator.GenerateFirstBag(bagPieces);
             bagPieces = BagGenerator.GenerateAnotherBag(bagPieces);
             nextPiece = BagGenerator.bagNextPiece;
-            
+
             SpawnPiece();
             BoardPrinter.PrintBoard(board, heldPiece);
-
-            Console.WriteLine(nextPiece);
-            foreach(KeyValuePair<int, string> kvp in bagPieces)
-            {
-                Console.WriteLine(kvp.Value);
-            }
-
-            Console.WriteLine("");
+            
             Console.ReadKey(true);
         }
         
