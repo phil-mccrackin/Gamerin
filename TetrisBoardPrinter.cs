@@ -387,6 +387,9 @@ namespace Gamerin
             PrintSomeBoard(23, ConsoleColor.DarkBlue);
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("\n");
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
         }
         void PrintSomeBoard(int blocks, ConsoleColor colour)
         {

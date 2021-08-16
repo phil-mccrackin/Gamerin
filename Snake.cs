@@ -732,8 +732,8 @@ namespace Gamerin
         }
         void CreateNewApple()
         {
-            int ranOne = RNG.Next(0, 9);
-            int ranTwo = RNG.Next(0, 9);
+            int ranOne = RNG.Next(0, 10);
+            int ranTwo = RNG.Next(0, 10);
 
             while(True)
             {
