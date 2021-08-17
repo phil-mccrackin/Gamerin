@@ -56,8 +56,7 @@ namespace Gamerin
         ConsoleKeyInfo key = new ConsoleKeyInfo();
         IDictionary<int, string> bagPieces = new Dictionary<int, string>();
         string[] pieceList = new string[]{"i", "l", "j", "s", "z", "t", "o"};
-        int[] activePieceLocations = new int[8];
-        string holdPiece = "i";
+        string holdPiece = "";
         bool toppedOut = false;
         bool gameOver = false;
         bool printingDone = true;
@@ -88,7 +87,6 @@ namespace Gamerin
             bagPieces = BagGenerator.GenerateFirstBag(bagPieces);
             bagPieces = BagGenerator.GenerateAnotherBag(bagPieces);
             nextPiece = BagGenerator.bagNextPiece;
-            SpawnPiece();
 
             //Timer refreshTimer = new Timer(Gravity, null, 0, gravityFrequency);
 
@@ -119,7 +117,37 @@ namespace Gamerin
             }
             if(pieceActive == false)
             {
-                SpawnPiece();
+                switch(nextPiece)
+                {
+                    case "i":
+                        TetrisI IPiece = new TetrisI();
+                        board = IPiece.Spawn(board);
+                        break;
+                    case "l":
+                        TetrisL LPiece = new TetrisL();
+                        board = LPiece.Spawn(board);
+                        break;
+                    case "j":
+                        TetrisJ JPiece = new TetrisJ();
+                        board = JPiece.Spawn(board);
+                        break;
+                    case "s":
+                        TetrisS SPiece = new TetrisS();
+                        board = SPiece.Spawn(board);
+                        break;
+                    case "z":
+                        TetrisZ ZPiece = new TetrisZ();
+                        board = ZPiece.Spawn(board);
+                        break;
+                    case "t":
+                        TetrisT TPiece = new TetrisT();
+                        board = TPiece.Spawn(board);
+                        break;
+                    case "o":
+                        TetrisO OPiece = new TetrisO();
+                        board = OPiece.Spawn(board);
+                        break;
+                }
                 pieceActive = true;
             }
 
@@ -131,12 +159,11 @@ namespace Gamerin
             {
                 gravityFrequency = 1000;
             }
-            Gravity();
 
             LoopBoardPrinter.PrintBoard(board, holdPiece);
             printingDone = true;
             Thread.Sleep(100);
-        
+        }
     }
 //wake
 //pizza

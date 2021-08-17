@@ -2,12 +2,13 @@ using System;
 
 namespace Gamerin
 {
-    public class TetrisTetrimino
+    public class TetrisTetriminoManager
     {
-        string pieceType;
-        bool toppedOut = false;
-        
-        string[,] Lock(string[,] board)
+        public string pieceType;
+        public bool pieceActive = false;
+        public bool toppedOut = false;
+
+        public string[,] Lock(string[,] board)
         {
             for(int x = 0; x < 41; x++)
             {
@@ -15,11 +16,12 @@ namespace Gamerin
                 {
                     if(board[x, y] == pieceType)
                     {
-                        board[x, y] == pieceType + "f";
+                        board[x, y] = pieceType + "f";
                     }
                 }
             }
-            this.Dispose();
+            pieceActive = false;
+            return board;
         }
     }
 }

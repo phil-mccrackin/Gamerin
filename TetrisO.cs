@@ -2,10 +2,11 @@ using System;
 
 namespace Gamerin
 {
-    public class TetrisO : TetrisTetrimino
+    public class TetrisO : TetrisTetriminoManager
     {
-        string[,] Spawn(string[,] board)
+        public string[,] Spawn(string[,] board)
         {
+            pieceType = "o";
             if(board[19, 5] == "  " && board[19, 6] == "  " && board[18, 5] == "  " && board[18, 6] == "  ")
             {
                 board[19, 5] = "o";
@@ -24,6 +25,7 @@ namespace Gamerin
             {
                 toppedOut = true;
             }
+            return board;
         }
     }
 }
