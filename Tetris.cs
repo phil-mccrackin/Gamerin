@@ -54,9 +54,9 @@ namespace Gamerin
 
         Random RNG = new Random();
         ConsoleKeyInfo key = new ConsoleKeyInfo();
-        IDictionary<string, int> bagPieces = new Dictionary<string, int>();
+        List<string> bagPieces = new List<string>();
         string[] pieceList = new string[]{"i", "l", "j", "s", "z", "t", "o"};
-        string holdPiece = "";
+        string holdPiece = "none";
         bool toppedOut = false;
         bool gameOver = false;
         bool printingDone = true;
@@ -120,33 +120,39 @@ namespace Gamerin
                 switch(nextPiece)
                 {
                     case "i":
-                        TetrisI IPiece = new TetrisI();
-                        board = IPiece.Spawn(board);
-                        foreach(KeyValuePair<string, int> kvp in bagPieces)
-                        {}
+                        new TetrisI().Spawn(board);
+                        nextPiece = bagPieces[0];
+                        bagPieces.RemoveAt(0);
                         break;
                     case "l":
-                        TetrisL LPiece = new TetrisL();
-                        board = LPiece.Spawn(board);
+                        new TetrisL().Spawn(board);
+                        nextPiece = bagPieces[0];
+                        bagPieces.RemoveAt(0);
                         break;
                     case "j":
-                        TetrisJ JPiece = new TetrisJ();
-                        board = JPiece.Spawn(board);
+                        new TetrisJ().Spawn(board);
+                        nextPiece = bagPieces[0];
+                        bagPieces.RemoveAt(0);
                         break;
                     case "s":
-                        TetrisS SPiece = new TetrisS();
-                        board = SPiece.Spawn(board);
+                        new TetrisS().Spawn(board);
+                        nextPiece = bagPieces[0];
+                        bagPieces.RemoveAt(0);
                         break;
                     case "z":
                         new TetrisZ().Spawn(board);
+                        nextPiece = bagPieces[0];
+                        bagPieces.RemoveAt(0);
                         break;
                     case "t":
-                        TetrisT TPiece = new TetrisT();
-                        board = TPiece.Spawn(board);
+                        new TetrisT().Spawn(board);
+                        nextPiece = bagPieces[0];
+                        bagPieces.RemoveAt(0);
                         break;
                     case "o":
-                        TetrisO OPiece = new TetrisO();
-                        board = OPiece.Spawn(board);
+                        new TetrisO().Spawn(board);
+                        nextPiece = bagPieces[0];
+                        bagPieces.RemoveAt(0);
                         break;
                 }
                 pieceActive = true;
