@@ -9,7 +9,7 @@ namespace Gamerin
         public string bagNextPiece;
         Random RNG = new Random();
 
-        public IDictionary<int, string> GenerateFirstBag(IDictionary<int, string> newBagPieces)
+        public IDictionary<string, int> GenerateFirstBag(IDictionary<string, int> newBagPieces)
         {
             switch(RNG.Next(1, 7))
             {
@@ -53,37 +53,37 @@ namespace Gamerin
                         switch(randomResult)
                         {
                             case 1:
-                                newBagPieces.Add(i, "i");
+                                newBagPieces.Add("i", i);
                                 newPieceList[0] = "empty";
                                 resultFound = true;
                                 break;
                             case 2:
-                                newBagPieces.Add(i, "l");
+                                newBagPieces.Add("l", i);
                                 newPieceList[1] = "empty";
                                 resultFound = true;
                                 break;
                             case 3:
-                                newBagPieces.Add(i, "j");
+                                newBagPieces.Add("j", i);
                                 newPieceList[2] = "empty";
                                 resultFound = true;
                                 break;
                             case 4:
-                                newBagPieces.Add(i, "s");
+                                newBagPieces.Add("j", i);
                                 newPieceList[3] = "empty";
                                 resultFound = true;
                                 break;
                             case 5:
-                                newBagPieces.Add(i, "z");
+                                newBagPieces.Add("j", i);
                                 newPieceList[4] = "empty";
                                 resultFound = true;
                                 break;
                             case 6:
-                                newBagPieces.Add(i, "t");
+                                newBagPieces.Add("t", i);
                                 newPieceList[5] = "empty";
                                 resultFound = true;
                                 break;
                             case 7:
-                                newBagPieces.Add(i, "o");
+                                newBagPieces.Add("o", i);
                                 newPieceList[6] = "empty";
                                 resultFound = true;
                                 break;
@@ -103,7 +103,7 @@ namespace Gamerin
             return newBagPieces;
         }
 
-        public IDictionary<int, string> GenerateAnotherBag(IDictionary<int, string> newBagPieces)
+        public IDictionary<string, int> GenerateAnotherBag(IDictionary<string, int> newBagPieces)
         {
             for(int i = 0; i < 7; i++)
             {
@@ -116,37 +116,37 @@ namespace Gamerin
                         switch(randomResult)
                         {
                             case 1:
-                                newBagPieces.Add(newBagPieces.Count + i, "i");
+                                newBagPieces.Add("i", newBagPieces.Count + i);
                                 newPieceList[0] = "empty";
                                 resultFound = true;
                                 break;
                             case 2:
-                                newBagPieces.Add(newBagPieces.Count + i, "l");
+                                newBagPieces.Add("l", newBagPieces.Count + i);
                                 newPieceList[1] = "empty";
                                 resultFound = true;
                                 break;
                             case 3:
-                                newBagPieces.Add(newBagPieces.Count + i, "j");
+                                newBagPieces.Add("j", newBagPieces.Count + i);
                                 newPieceList[2] = "empty";
                                 resultFound = true;
                                 break;
                             case 4:
-                                newBagPieces.Add(newBagPieces.Count + i, "s");
+                                newBagPieces.Add("s", newBagPieces.Count + i);
                                 newPieceList[3] = "empty";
                                 resultFound = true;
                                 break;
                             case 5:
-                                newBagPieces.Add(newBagPieces.Count + i, "z");
+                                newBagPieces.Add("z", newBagPieces.Count + i);
                                 newPieceList[4] = "empty";
                                 resultFound = true;
                                 break;
                             case 6:
-                                newBagPieces.Add(newBagPieces.Count + i, "t");
+                                newBagPieces.Add("t", newBagPieces.Count + i);
                                 newPieceList[5] = "empty";
                                 resultFound = true;
                                 break;
                             case 7:
-                                newBagPieces.Add(newBagPieces.Count + i, "o");
+                                newBagPieces.Add("o", newBagPieces.Count + i);
                                 newPieceList[6] = "empty";
                                 resultFound = true;
                                 break;

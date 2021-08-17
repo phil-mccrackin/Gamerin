@@ -54,7 +54,7 @@ namespace Gamerin
 
         Random RNG = new Random();
         ConsoleKeyInfo key = new ConsoleKeyInfo();
-        IDictionary<int, string> bagPieces = new Dictionary<int, string>();
+        IDictionary<string, int> bagPieces = new Dictionary<string, int>();
         string[] pieceList = new string[]{"i", "l", "j", "s", "z", "t", "o"};
         string holdPiece = "";
         bool toppedOut = false;
@@ -122,6 +122,8 @@ namespace Gamerin
                     case "i":
                         TetrisI IPiece = new TetrisI();
                         board = IPiece.Spawn(board);
+                        foreach(KeyValuePair<string, int> kvp in bagPieces)
+                        {}
                         break;
                     case "l":
                         TetrisL LPiece = new TetrisL();
@@ -136,8 +138,7 @@ namespace Gamerin
                         board = SPiece.Spawn(board);
                         break;
                     case "z":
-                        TetrisZ ZPiece = new TetrisZ();
-                        board = ZPiece.Spawn(board);
+                        new TetrisZ().Spawn(board);
                         break;
                     case "t":
                         TetrisT TPiece = new TetrisT();

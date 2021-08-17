@@ -4,7 +4,7 @@ namespace Gamerin
 {
     public class TetrisI : TetrisTetriminoManager
     {
-        public string[,] Spawn(string[,] board)
+        public override string[,] Spawn(string[,] board)
         {
             pieceType = "i";
             if(board[19, 4] == "  " && board[19, 5] == "  " && board[19, 6] == "  " && board[19, 7] == "  ")

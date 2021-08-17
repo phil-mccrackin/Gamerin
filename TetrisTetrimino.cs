@@ -2,11 +2,13 @@ using System;
 
 namespace Gamerin
 {
-    public class TetrisTetriminoManager
+    public abstract class TetrisTetriminoManager
     {
         public string pieceType;
         public bool pieceActive = false;
         public bool toppedOut = false;
+
+        public abstract string[,] Spawn(string[,] board);
 
         public string[,] Lock(string[,] board)
         {
