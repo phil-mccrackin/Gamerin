@@ -4,9 +4,11 @@ namespace Gamerin
 {
     public class TetrisBoardPrinter
     {
-        string newHeldPiece;
-        public void PrintBoard(string[,] newBoard, string newHeldPiece)
+        public bool printingDone = false;
+        public void PrintBoard(string[,] newBoard, string newHoldPiece)
         {
+            printingDone = false;
+
             Console.ForegroundColor = ConsoleColor.Black;
             Console.Clear();
 
@@ -51,7 +53,7 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
 
-            switch(newHeldPiece)
+            switch(newHoldPiece)
             {
                 case "l":
                 case "j":
@@ -88,7 +90,7 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            switch(newHeldPiece)
+            switch(newHoldPiece)
             {
                 case "none":
                     PrintSomeBoard(4, ConsoleColor.DarkGray);
@@ -159,7 +161,7 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            switch(newHeldPiece)
+            switch(newHoldPiece)
             {
                 case "none":
                     PrintSomeBoard(4, ConsoleColor.DarkGray);
@@ -230,7 +232,7 @@ namespace Gamerin
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
             PrintSomeBoard(1, ConsoleColor.DarkCyan);
             PrintSomeBoard(1, ConsoleColor.DarkBlue);
-            switch(newHeldPiece)
+            switch(newHoldPiece)
             {
                 case "z":
                 case "s":
@@ -336,6 +338,8 @@ namespace Gamerin
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
+
+            printingDone = true;
         }
         void PrintSomeBoard(int blocks, ConsoleColor colour)
         {
@@ -361,11 +365,11 @@ namespace Gamerin
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Write("\n");
         }
-        void PrintBoardLine(int x, string[,] newBoard)
+        void PrintBoardLine(int x, string[,] lastNewBoard)
         {
             for(int y = 1; y < 11; y++)
             {
-                switch(newBoard[19 + x, y])
+                switch(lastNewBoard[19 + x, y])
                 {
                     case "  ":
                         PrintSomeBoard(1, ConsoleColor.DarkGray);
