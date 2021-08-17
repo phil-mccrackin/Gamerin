@@ -5,6 +5,7 @@ namespace Gamerin
     public class TetrisTetrimino
     {
         string pieceType;
+        bool toppedOut = false;
         
         string[,] Lock(string[,] board)
         {
