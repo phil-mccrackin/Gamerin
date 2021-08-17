@@ -62,7 +62,7 @@ namespace Gamerin
         bool printingDone = true;
         int gravityFrequency = 1000;
 
-        bool pieceActive = true;
+        bool pieceActive = false;
         
         
         public void TetrisIntro()
@@ -169,7 +169,7 @@ namespace Gamerin
 
             LoopBoardPrinter.PrintBoard(board, holdPiece);
             printingDone = true;
-            Thread.Sleep(100);
+            Thread.Sleep(200);
         }
     }
 //wake
